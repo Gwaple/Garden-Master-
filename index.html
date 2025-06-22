@@ -6,19 +6,29 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🌱 Garden Game for Kids 🌻</h1>
-  <div id="gameArea">
+  <div id="homePage">
+    <h1>🌱 Garden Game for Kids 🌻</h1>
+    <p>Grow your own virtual garden! Select seeds, water them, and watch them grow.<br>
+    Can you become a Master Gardener?</p>
+    <button onclick="startGame()">Start Gardening</button>
+  </div>
+
+  <div id="gameArea" style="display:none;">
+    <div id="topBar">
+      <span id="levelDisplay">Level: Beginner</span>
+      <span id="plantsGrownDisplay">Plants Grown: 0</span>
+      <button id="backBtn" onclick="goHome()">🏠 Home</button>
+    </div>
     <div id="seedSelection">
       <p>Choose a seed:</p>
-      <button onclick="selectSeed('Carrot')">🥕 Carrot</button>
-      <button onclick="selectSeed('Tomato')">🍅 Tomato</button>
-      <button onclick="selectSeed('Sunflower')">🌻 Sunflower</button>
+      <div id="seedButtons"></div>
     </div>
     <div id="garden" style="display:none;">
       <p id="plantStage">Ready to plant your <span id="seedType"></span>!</p>
       <button id="plantBtn" onclick="plantSeed()">Plant Seed</button>
       <div id="wateringCanContainer">
         <span id="wateringCan" class="hidden">🚿</span>
+        <div id="droplets"></div>
       </div>
       <button id="waterBtn" onclick="waterPlant()" style="display:none;">Water Plant</button>
       <button id="restartBtn" onclick="restartGame()" style="display:none;">Restart</button>
