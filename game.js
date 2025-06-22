@@ -1,105 +1,229 @@
+// --- PLANTS & LEVELS ---
+const allPlants = [
+  {
+    name: "Carrot", emoji: "🥕", seeds: "🌱", sprout: "🥬",
+    tips: [
+      "Carrots like loose, sandy soil!",
+      "Carrots need sunlight to grow strong.",
+      "Remember to water your carrots gently."
+    ]
+  },
+  {
+    name: "Tomato", emoji: "🍅", seeds: "🌱", sprout: "🌿",
+    tips: [
+      "Tomatoes love warm, sunny spots.",
+      "Give tomatoes support as they grow tall.",
+      "Water tomatoes at the base, not the leaves!"
+    ]
+  },
+  {
+    name: "Sunflower", emoji: "🌻", seeds: "🌱", sprout: "🌾",
+    tips: [
+      "Sunflowers always turn toward the sun.",
+      "Give sunflowers lots of space to grow tall!",
+      "Sunflowers attract bees and birds."
+    ]
+  },
+  {
+    name: "Pumpkin", emoji: "🎃", seeds: "🌰", sprout: "🍃",
+    tips: [
+      "Pumpkins need lots of space and water.",
+      "Pumpkins love sunshine!",
+      "Big leaves help pumpkins grow."
+    ]
+  },
+  {
+    name: "Lettuce", emoji: "🥬", seeds: "🌰", sprout: "🍃",
+    tips: [
+      "Lettuce likes cool weather.",
+      "Keep lettuce soil moist.",
+      "Pick leaves from the outside!"
+    ]
+  },
+  {
+    name: "Cucumber", emoji: "🥒", seeds: "🌰", sprout: "🌿",
+    tips: [
+      "Cucumbers need lots of water.",
+      "Give cucumbers a trellis to climb.",
+      "Harvest cucumbers when they're green and firm."
+    ]
+  }
+];
+const gardenerLevels = [
+  { plants: 0, title: "Beginner", emoji: "🌱" },
+  { plants: 3, title: "Growing Gardener", emoji: "🌿" },
+  { plants: 6, title: "Green Thumb", emoji: "🍀" },
+  { plants: 10, title: "Expert", emoji: "🌸" },
+  { plants: 15, title: "Master Gardener", emoji: "🏆" }
+];
+
+// --- GAME STATE ---
 let selectedSeed = '';
 let stage = 0; // 0=choose, 1=planted, 2=growing, 3=fully grown
 let waterings = 0;
-const wateringsNeeded = 3; // Number of waterings to fully grow
+const wateringsNeeded = 3;
+let currentPlant = null;
+let plantsGrown = 0;
 
-const plantStages = {
-  Carrot: ["🌱", "🥬", "🥕"],
-  Tomato: ["🌱", "🌿", "🍅"],
-  Sunflower: ["🌱", "🌾", "🌻"]
-};
+// --- DOM ELEMENTS ---
+const homePage = document.getElementById('homePage');
+const gameArea = document.getElementById('gameArea');
+const seedButtonsDiv = document.getElementById('seedButtons');
+const seedSelection = document.getElementById('seedSelection');
+const garden = document.getElementById('garden');
+const plantStageP = document.getElementById('plantStage');
+const seedTypeSpan = document.getElementById('seedType');
+const plantBtn = document.getElementById('plantBtn');
+const waterBtn = document.getElementById('waterBtn');
+const restartBtn = document.getElementById('restartBtn');
+const plantImgDiv = document.getElementById('plantImg');
+const tipP = document.getElementById('tip');
+const progressBarContainer = document.getElementById('progressBarContainer');
+const progressBar = document.getElementById('progressBar');
+const wateringCan = document.getElementById('wateringCan');
+const dropletsDiv = document.getElementById('droplets');
+const levelDisplay = document.getElementById('levelDisplay');
+const plantsGrownDisplay = document.getElementById('plantsGrownDisplay');
 
-const tips = {
-  Carrot: [
-    "Carrots like loose, sandy soil!",
-    "Carrots need sunlight to grow strong.",
-    "Remember to water your carrots gently."
-  ],
-  Tomato: [
-    "Tomatoes love warm, sunny spots.",
-    "Give tomatoes support as they grow tall.",
-    "Water tomatoes at the base, not the leaves!"
-  ],
-  Sunflower: [
-    "Sunflowers always turn toward the sun.",
-    "Give sunflowers lots of space to grow tall!",
-    "Sunflowers attract bees and birds."
-  ]
-};
+// --- HOME PAGE ---
+function startGame() {
+  homePage.style.display = "none";
+  gameArea.style.display = "";
+  updateLevelDisplay();
+  updatePlantsGrown();
+  showSeedSelection();
+}
+function goHome() {
+  gameArea.style.display = "none";
+  homePage.style.display = "";
+}
 
+// --- SEED SELECTION ---
+function showSeedSelection() {
+  seedSelection.style.display = '';
+  garden.style.display = 'none';
+  // Dynamically create plant buttons
+  seedButtonsDiv.innerHTML = '';
+  allPlants.forEach(plant => {
+    const btn = document.createElement('button');
+    btn.innerHTML = `${plant.emoji} ${plant.name}`;
+    btn.onclick = () => selectSeed(plant.name);
+    seedButtonsDiv.appendChild(btn);
+  });
+}
+
+// --- PLANTING ---
 function selectSeed(seed) {
   selectedSeed = seed;
-  document.getElementById('seedSelection').style.display = 'none';
-  document.getElementById('garden').style.display = '';
-  document.getElementById('plantStage').textContent = `Ready to plant your ${seed}!`;
-  document.getElementById('seedType').textContent = seed;
-  document.getElementById('plantBtn').style.display = '';
-  document.getElementById('waterBtn').style.display = 'none';
-  document.getElementById('restartBtn').style.display = 'none';
-  document.getElementById('plantImg').innerHTML = '';
-  document.getElementById('tip').textContent = '';
-  document.getElementById('progressBarContainer').style.display = 'none';
-  document.getElementById('wateringCan').classList.add('hidden');
+  currentPlant = allPlants.find(p => p.name === seed);
+  seedSelection.style.display = 'none';
+  garden.style.display = '';
+  plantStageP.textContent = `Ready to plant your ${seed}!`;
+  seedTypeSpan.textContent = seed;
+  plantBtn.style.display = '';
+  waterBtn.style.display = 'none';
+  restartBtn.style.display = 'none';
+  plantImgDiv.innerHTML = '';
+  tipP.textContent = '';
+  progressBarContainer.style.display = 'none';
+  wateringCan.classList.add('hidden');
+  dropletsDiv.innerHTML = '';
   waterings = 0;
   stage = 0;
 }
 
 function plantSeed() {
   if (stage !== 0) return;
-  document.getElementById('plantStage').textContent = `You planted a ${selectedSeed} seed! Time to water it.`;
-  document.getElementById('plantImg').textContent = plantStages[selectedSeed][0];
-  document.getElementById('tip').textContent = getTip();
-  document.getElementById('plantBtn').style.display = 'none';
-  document.getElementById('waterBtn').style.display = '';
-  document.getElementById('progressBarContainer').style.display = '';
-  document.getElementById('wateringCan').classList.remove('hidden');
+  plantStageP.textContent = `You planted a ${selectedSeed} seed! Time to water it.`;
+  plantImgDiv.textContent = currentPlant.seeds;
+  tipP.textContent = getTip();
+  plantBtn.style.display = 'none';
+  waterBtn.style.display = '';
+  progressBarContainer.style.display = '';
+  wateringCan.classList.remove('hidden');
+  dropletsDiv.innerHTML = '';
   updateProgressBar();
   stage = 1;
 }
 
 function waterPlant() {
   if (stage !== 1 && stage !== 2) return;
-  // Animate the watering can
-  const can = document.getElementById('wateringCan');
-  can.classList.remove('hidden');
-  can.classList.add('animate');
-  setTimeout(() => can.classList.remove('animate'), 600);
+  animateWateringCan();
+  showDroplets();
 
   waterings++;
   if (waterings < wateringsNeeded) {
-    document.getElementById('plantStage').textContent = `You watered the ${selectedSeed}!`;
-    document.getElementById('plantImg').textContent = plantStages[selectedSeed][1];
-    document.getElementById('tip').textContent = getTip();
+    plantStageP.textContent = `You watered the ${selectedSeed}!`;
+    plantImgDiv.textContent = currentPlant.sprout;
+    tipP.textContent = getTip();
     stage = 2;
   } else {
-    document.getElementById('plantStage').textContent = `Your ${selectedSeed} is fully grown!`;
-    document.getElementById('plantImg').textContent = plantStages[selectedSeed][2];
-    document.getElementById('tip').textContent = getTip();
-    document.getElementById('waterBtn').style.display = 'none';
-    document.getElementById('restartBtn').style.display = '';
-    can.classList.add('hidden');
+    plantStageP.textContent = `Your ${selectedSeed} is fully grown!`;
+    plantImgDiv.textContent = currentPlant.emoji;
+    tipP.textContent = getTip();
+    waterBtn.style.display = 'none';
+    restartBtn.style.display = '';
+    wateringCan.classList.add('hidden');
     stage = 3;
+    plantsGrown++;
+    updateLevelDisplay();
+    updatePlantsGrown();
   }
   updateProgressBar();
 }
 
 function restartGame() {
-  document.getElementById('seedSelection').style.display = '';
-  document.getElementById('garden').style.display = 'none';
+  showSeedSelection();
   selectedSeed = '';
   waterings = 0;
   stage = 0;
-  document.getElementById('wateringCan').classList.add('hidden');
+  wateringCan.classList.add('hidden');
+  dropletsDiv.innerHTML = '';
 }
 
+// --- LEVEL SYSTEM ---
+function updateLevelDisplay() {
+  let currLevel = gardenerLevels[0];
+  for (let lvl of gardenerLevels) {
+    if (plantsGrown >= lvl.plants) currLevel = lvl;
+  }
+  levelDisplay.textContent = `Level: ${currLevel.title} ${currLevel.emoji}`;
+}
+function updatePlantsGrown() {
+  plantsGrownDisplay.textContent = `Plants Grown: ${plantsGrown}`;
+}
+
+// --- ANIMATIONS ---
+function animateWateringCan() {
+  wateringCan.classList.remove('hidden');
+  wateringCan.classList.add('animate');
+  setTimeout(() => wateringCan.classList.remove('animate'), 600);
+}
+function showDroplets() {
+  dropletsDiv.innerHTML = '';
+  for (let i = 0; i < 3; i++) {
+    const drop = document.createElement('span');
+    drop.className = 'waterDroplet';
+    drop.style.left = `${i * 22}px`;
+    drop.textContent = "💧";
+    dropletsDiv.appendChild(drop);
+    // Remove each droplet after animation
+    setTimeout(() => {
+      if (drop.parentNode) drop.parentNode.removeChild(drop);
+    }, 700);
+  }
+}
+
+// --- TIPS ---
 function getTip() {
-  const factList = tips[selectedSeed];
+  const factList = currentPlant.tips;
   return factList[Math.floor(Math.random() * factList.length)];
 }
 
+// --- PROGRESS BAR ---
 function updateProgressBar() {
   const percent = Math.min(100, (waterings / wateringsNeeded) * 100);
-  document.getElementById('progressBar').style.width = percent + "%";
+  progressBar.style.width = percent + "%";
 }
 
 
