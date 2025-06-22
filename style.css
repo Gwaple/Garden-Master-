@@ -54,3 +54,20 @@ button:hover {
   width: 0%;
   transition: width 0.3s;
 }
+#wateringCanContainer {
+  height: 50px;
+  margin-bottom: 10px;
+}
+#wateringCan {
+  font-size: 38px;
+  opacity: 1;
+  transition: transform 0.3s, opacity 0.3s;
+  display: inline-block;
+}
+#wateringCan.animate {
+  transform: translateY(15px) rotate(-20deg) scale(1.2);
+  opacity: 0.7;
+}
+#wateringCan.hidden {
+  opacity: 0;
+}
