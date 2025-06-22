@@ -63,7 +63,10 @@ let stage = 0;
 let waterings = 0;
 const wateringsNeeded = 3;
 let currentPlant = null;
+
+// --- PROGRESS STATE ---
 let plantsGrown = 0;
+let grownPlantsList = []; // Array of {name, emoji, date, count}
 
 // --- DOM ELEMENTS ---
 const homePage = document.getElementById('homePage');
@@ -85,10 +88,25 @@ const dropletsDiv = document.getElementById('droplets');
 const levelDisplay = document.getElementById('levelDisplay');
 const plantsGrownDisplay = document.getElementById('plantsGrownDisplay');
 
+// --- ADD: DOM for grown plants stats ---
+let statsDiv = null;
+window.addEventListener('DOMContentLoaded', () => {
+  statsDiv = document.createElement('div');
+  statsDiv.id = 'grownPlantsStats';
+  statsDiv.style.marginTop = "16px";
+  statsDiv.style.background = "#e7ffd8";
+  statsDiv.style.borderRadius = "8px";
+  statsDiv.style.padding = "10px";
+  statsDiv.style.fontSize = "1em";
+  statsDiv.style.display = "none";
+  gameArea.appendChild(statsDiv);
+});
+
 // --- SAVE AND LOAD PROGRESS ---
 function saveProgress() {
   localStorage.setItem('gardenGameProgress', JSON.stringify({
-    plantsGrown: plantsGrown
+    plantsGrown,
+    grownPlantsList
   }));
 }
 function loadProgress() {
@@ -97,9 +115,11 @@ function loadProgress() {
     try {
       const prog = JSON.parse(data);
       plantsGrown = typeof prog.plantsGrown === "number" ? prog.plantsGrown : 0;
-    } catch { plantsGrown = 0; }
+      grownPlantsList = Array.isArray(prog.grownPlantsList) ? prog.grownPlantsList : [];
+    } catch { plantsGrown = 0; grownPlantsList = []; }
   } else {
     plantsGrown = 0;
+    grownPlantsList = [];
   }
 }
 
@@ -111,6 +131,7 @@ function startGame() {
   updateLevelDisplay();
   updatePlantsGrown();
   showSeedSelection();
+  showGrownPlantsStats();
 }
 function goHome() {
   gameArea.style.display = "none";
@@ -185,9 +206,11 @@ function waterPlant() {
     wateringCan.classList.add('hidden');
     stage = 3;
     plantsGrown++;
+    updateGrownPlantsList(selectedSeed, currentPlant.emoji);
     saveProgress();
     updateLevelDisplay();
     updatePlantsGrown();
+    showGrownPlantsStats();
   }
   updateProgressBar();
 }
@@ -211,6 +234,32 @@ function updateLevelDisplay() {
 }
 function updatePlantsGrown() {
   plantsGrownDisplay.textContent = `Plants Grown: ${plantsGrown}`;
+}
+
+// --- GROWN PLANTS STATS ---
+function updateGrownPlantsList(plantName, emoji) {
+  const now = new Date().toLocaleString();
+  let found = grownPlantsList.find(p => p.name === plantName);
+  if (found) {
+    found.count += 1;
+    found.date = now;
+  } else {
+    grownPlantsList.push({ name: plantName, emoji, date: now, count: 1 });
+  }
+}
+function showGrownPlantsStats() {
+  if (!statsDiv) return;
+  if (grownPlantsList.length === 0) {
+    statsDiv.style.display = "none";
+    statsDiv.innerHTML = "";
+  } else {
+    statsDiv.style.display = "";
+    statsDiv.innerHTML = "<b>🌼 Your Plant Collection:</b><ul style='list-style:none;padding:0;margin:8px 0'>";
+    grownPlantsList.forEach(plant => {
+      statsDiv.innerHTML += `<li>${plant.emoji} <b>${plant.name}</b> — grown <b>${plant.count}</b> time${plant.count>1?'s':''} <br><span style="font-size:0.93em;color:#555;">Last: ${plant.date}</span></li>`;
+    });
+    statsDiv.innerHTML += "</ul>";
+  }
 }
 
 // --- ANIMATIONS ---
@@ -250,6 +299,7 @@ window.onload = function() {
   loadProgress();
   updateLevelDisplay();
   updatePlantsGrown();
+  showGrownPlantsStats();
 };
 
 
