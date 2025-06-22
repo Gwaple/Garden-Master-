@@ -51,10 +51,10 @@ const allPlants = [
 ];
 const gardenerLevels = [
   { plants: 0, title: "Beginner", emoji: "🌱" },
-  { plants: 3, title: "Growing Gardener", emoji: "🌿" },
-  { plants: 6, title: "Green Thumb", emoji: "🍀" },
-  { plants: 10, title: "Expert", emoji: "🌸" },
-  { plants: 15, title: "Master Gardener", emoji: "🏆" }
+  { plants: 5, title: "Growing Gardener", emoji: "🌿" },
+  { plants: 15, title: "Green Thumb", emoji: "🍀" },
+  { plants: 30, title: "Expert", emoji: "🌸" },
+  { plants: 50, title: "Master Gardener", emoji: "🏆" }
 ];
 
 // --- GAME STATE ---
