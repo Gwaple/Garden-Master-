@@ -59,7 +59,7 @@ const gardenerLevels = [
 
 // --- GAME STATE ---
 let selectedSeed = '';
-let stage = 0; // 0=choose, 1=planted, 2=growing, 3=fully grown
+let stage = 0;
 let waterings = 0;
 const wateringsNeeded = 3;
 let currentPlant = null;
@@ -85,10 +85,29 @@ const dropletsDiv = document.getElementById('droplets');
 const levelDisplay = document.getElementById('levelDisplay');
 const plantsGrownDisplay = document.getElementById('plantsGrownDisplay');
 
+// --- SAVE AND LOAD PROGRESS ---
+function saveProgress() {
+  localStorage.setItem('gardenGameProgress', JSON.stringify({
+    plantsGrown: plantsGrown
+  }));
+}
+function loadProgress() {
+  const data = localStorage.getItem('gardenGameProgress');
+  if (data) {
+    try {
+      const prog = JSON.parse(data);
+      plantsGrown = typeof prog.plantsGrown === "number" ? prog.plantsGrown : 0;
+    } catch { plantsGrown = 0; }
+  } else {
+    plantsGrown = 0;
+  }
+}
+
 // --- HOME PAGE ---
 function startGame() {
   homePage.style.display = "none";
   gameArea.style.display = "";
+  loadProgress();
   updateLevelDisplay();
   updatePlantsGrown();
   showSeedSelection();
@@ -166,6 +185,7 @@ function waterPlant() {
     wateringCan.classList.add('hidden');
     stage = 3;
     plantsGrown++;
+    saveProgress();
     updateLevelDisplay();
     updatePlantsGrown();
   }
@@ -207,7 +227,6 @@ function showDroplets() {
     drop.style.left = `${i * 22}px`;
     drop.textContent = "💧";
     dropletsDiv.appendChild(drop);
-    // Remove each droplet after animation
     setTimeout(() => {
       if (drop.parentNode) drop.parentNode.removeChild(drop);
     }, 700);
@@ -225,5 +244,12 @@ function updateProgressBar() {
   const percent = Math.min(100, (waterings / wateringsNeeded) * 100);
   progressBar.style.width = percent + "%";
 }
+
+// --- INITIALIZE ON LOAD ---
+window.onload = function() {
+  loadProgress();
+  updateLevelDisplay();
+  updatePlantsGrown();
+};
 
 
