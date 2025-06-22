@@ -1,5 +1,13 @@
 let selectedSeed = '';
-let stage = 0; // 0=choose, 1=planted, 2=watered, 3=grown
+let stage = 0; // 0=choose, 1=planted, 2=growing, 3=fully grown
+let waterings = 0;
+const wateringsNeeded = 3; // Number of waterings to fully grow
+
+const plantStages = {
+  Carrot: ["🌱", "🥬", "🥕"],
+  Tomato: ["🌱", "🌿", "🍅"],
+  Sunflower: ["🌱", "🌾", "🌻"]
+};
 
 const tips = {
   Carrot: [
@@ -30,39 +38,49 @@ function selectSeed(seed) {
   document.getElementById('restartBtn').style.display = 'none';
   document.getElementById('plantImg').innerHTML = '';
   document.getElementById('tip').textContent = '';
+  document.getElementById('progressBarContainer').style.display = 'none';
+  waterings = 0;
   stage = 0;
 }
 
 function plantSeed() {
   if (stage !== 0) return;
-  document.getElementById('plantStage').textContent = `You planted a ${selectedSeed} seed!`;
-  document.getElementById('plantImg').textContent = "🌱";
+  document.getElementById('plantStage').textContent = `You planted a ${selectedSeed} seed! Time to water it.`;
+  document.getElementById('plantImg').textContent = plantStages[selectedSeed][0];
   document.getElementById('tip').textContent = getTip();
   document.getElementById('plantBtn').style.display = 'none';
   document.getElementById('waterBtn').style.display = '';
+  document.getElementById('progressBarContainer').style.display = '';
+  updateProgressBar();
   stage = 1;
 }
 
 function waterPlant() {
-  if (stage !== 1) return;
-  document.getElementById('plantStage').textContent = `You watered the ${selectedSeed}! Watch it grow...`;
-  if (selectedSeed === "Carrot") {
-    document.getElementById('plantImg').textContent = "🥕";
-  } else if (selectedSeed === "Tomato") {
-    document.getElementById('plantImg').textContent = "🍅";
-  } else if (selectedSeed === "Sunflower") {
-    document.getElementById('plantImg').textContent = "🌻";
+  if (stage !== 1 && stage !== 2) return;
+  waterings++;
+  if (waterings < wateringsNeeded) {
+    // Growing stage
+    document.getElementById('plantStage').textContent = `You watered the ${selectedSeed}!`;
+    document.getElementById('plantImg').textContent = plantStages[selectedSeed][1];
+    document.getElementById('tip').textContent = getTip();
+    stage = 2;
+  } else {
+    // Fully grown
+    document.getElementById('plantStage').textContent = `Your ${selectedSeed} is fully grown!`;
+    document.getElementById('plantImg').textContent = plantStages[selectedSeed][2];
+    document.getElementById('tip').textContent = getTip();
+    document.getElementById('waterBtn').style.display = 'none';
+    document.getElementById('restartBtn').style.display = '';
+    stage = 3;
   }
-  document.getElementById('tip').textContent = getTip();
-  document.getElementById('waterBtn').style.display = 'none';
-  document.getElementById('restartBtn').style.display = '';
-  stage = 2;
+  updateProgressBar();
 }
 
 function restartGame() {
   document.getElementById('seedSelection').style.display = '';
   document.getElementById('garden').style.display = 'none';
   selectedSeed = '';
+  waterings = 0;
   stage = 0;
 }
 
@@ -70,3 +88,10 @@ function getTip() {
   const factList = tips[selectedSeed];
   return factList[Math.floor(Math.random() * factList.length)];
 }
+
+function updateProgressBar() {
+  const percent = Math.min(100, (waterings / wateringsNeeded) * 100);
+  document.getElementById('progressBar').style.width = percent + "%";
+}
+
+
