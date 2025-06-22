@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Garden Game for Kids</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🌱 Garden Game for Kids 🌻</h1>
+  <div id="gameArea">
+    <div id="seedSelection">
+      <p>Choose a seed:</p>
+      <button onclick="selectSeed('Carrot')">🥕 Carrot</button>
+      <button onclick="selectSeed('Tomato')">🍅 Tomato</button>
+      <button onclick="selectSeed('Sunflower')">🌻 Sunflower</button>
+    </div>
+    <div id="garden" style="display:none;">
+      <p id="plantStage">Ready to plant your <span id="seedType"></span>!</p>
+      <button id="plantBtn" onclick="plantSeed()">Plant Seed</button>
+      <button id="waterBtn" onclick="waterPlant()" style="display:none;">Water Plant</button>
+      <button id="restartBtn" onclick="restartGame()" style="display:none;">Restart</button>
+      <div id="plantImg"></div>
+      <p id="tip"></p>
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>

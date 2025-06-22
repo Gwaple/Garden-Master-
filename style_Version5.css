@@ -1,0 +1,40 @@
+body {
+  background: #d0f6c6;
+  font-family: Comic Sans MS, 'Comic Sans', cursive, sans-serif;
+  text-align: center;
+}
+h1 {
+  color: #357a38;
+  margin-top: 30px;
+}
+#gameArea {
+  background: #fffbe7;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px #a2d5ab;
+  width: 350px;
+  margin: 40px auto;
+  padding: 30px 20px;
+}
+button {
+  margin: 10px;
+  padding: 12px 24px;
+  font-size: 20px;
+  background: #9be7a7;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:hover {
+  background: #66bb6a;
+  color: #fff;
+}
+#plantImg {
+  margin: 25px 0;
+  font-size: 70px;
+}
+#tip {
+  color: #4e7d3a;
+  font-size: 18px;
+  margin-top: 12px;
+}
