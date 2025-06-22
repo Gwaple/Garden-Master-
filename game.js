@@ -51,10 +51,15 @@ const allPlants = [
 ];
 const gardenerLevels = [
   { plants: 0, title: "Beginner", emoji: "🌱" },
-  { plants: 5, title: "Growing Gardener", emoji: "🌿" },
-  { plants: 15, title: "Green Thumb", emoji: "🍀" },
-  { plants: 30, title: "Expert", emoji: "🌸" },
-  { plants: 50, title: "Master Gardener", emoji: "🏆" }
+  { plants: 3, title: "Seed Starter", emoji: "🌰" },
+  { plants: 7, title: "Sprout Champion", emoji: "🌿" },
+  { plants: 12, title: "Leafy Learner", emoji: "🍃" },
+  { plants: 18, title: "Green Thumb", emoji: "🍀" },
+  { plants: 25, title: "Budding Botanist", emoji: "🪴" },
+  { plants: 35, title: "Flower Fanatic", emoji: "🌸" },
+  { plants: 50, title: "Expert Gardener", emoji: "🪻" },
+  { plants: 70, title: "Harvest Hero", emoji: "🥕" },
+  { plants: 100, title: "Master Gardener", emoji: "🏆" }
 ];
 
 // --- GAME STATE ---
