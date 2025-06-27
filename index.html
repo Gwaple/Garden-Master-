@@ -1,3 +1,31 @@
+
+    <div id="loginBox">
+      <h2>Login</h2>
+      <input id="loginUser" placeholder="Username"><br>
+      <input id="loginPass" type="password" placeholder="Password"><br>
+      <button onclick="login()">Login</button>
+      <button onclick="showRegister()">Register</button>
+      <div id="loginMsg"></div>
+    </div>
+    <div id="registerBox" style="display:none;">
+      <h2>Create Account</h2>
+      <input id="regUser" placeholder="Username"><br>
+      <input id="regPass" type="password" placeholder="Password"><br>
+      <button onclick="register()">Register</button>
+      <button onclick="showLogin()">Back to Login</button>
+      <div id="registerMsg"></div>
+    </div>
+  </div>
+  <div id="gameArea" style="display:none;">
+    <h2 id="welcome"></h2>
+    <div id="garden"></div>
+    <button onclick="growPlant()">Grow Plant</button>
+    <button onclick="saveGarden()">Save Progress</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
