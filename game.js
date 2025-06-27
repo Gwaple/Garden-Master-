@@ -60,33 +60,7 @@ function register() {
   setTimeout(showLogin, 1200);
 }
 
-// --- Gardening Game Example (Replace with your real game logic!) ---
-function loadGarden() {
-  let accounts = getAccounts();
-  let garden = accounts[currentUser].garden || { plants: 0, plantsList: [] };
-  document.getElementById("garden").innerHTML =
-    `You have grown <b>${garden.plants}</b> plants.<br>` +
-    garden.plantsList.map((p,i) => `🌱 Plant #${i+1}`).join(" ");
-}
-function growPlant() {
-  let accounts = getAccounts();
-  let garden = accounts[currentUser].garden;
-  garden.plants++;
-  garden.plantsList.push("Plant #" + garden.plants);
-  saveAccounts(accounts);
-  loadGarden();
-}
-function saveGarden() {
-  // Already saved on grow, but you could add extra logic here
-  alert("Progress saved for " + currentUser + "!");
-}
 
-// --- Init ---
-window.onload = () => {
-  document.getElementById("authArea").style.display = "";
-  document.getElementById("gameArea").style.display = "none";
-  showLogin();
-};
 // --- PLANTS & LEVELS ---
 const allPlants = [
   {
