@@ -2,34 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Gardening Game</title>
+  <title>Garden Game for Kids</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="authArea">
-    <div id="loginBox">
-      <h2>Login</h2>
-      <input id="loginUser" placeholder="Username"><br>
-      <input id="loginPass" type="password" placeholder="Password"><br>
-      <button onclick="login()">Login</button>
-      <button onclick="showRegister()">Register</button>
-      <div id="loginMsg"></div>
-    </div>
-    <div id="registerBox" style="display:none;">
-      <h2>Create Account</h2>
-      <input id="regUser" placeholder="Username"><br>
-      <input id="regPass" type="password" placeholder="Password"><br>
-      <button onclick="register()">Register</button>
-      <button onclick="showLogin()">Back to Login</button>
-      <div id="registerMsg"></div>
-    </div>
+  <div id="homePage">
+    <h1>🌱 Garden Game for Kids 🌻</h1>
+    <p>Grow your own virtual garden! Select seeds, water them, and watch them grow.<br>
+    Can you become a Master Gardener?</p>
+    <button onclick="startGame()">Start Gardening</button>
   </div>
+
   <div id="gameArea" style="display:none;">
-    <h2 id="welcome"></h2>
-    <div id="garden"></div>
-    <button onclick="growPlant()">Grow Plant</button>
-    <button onclick="saveGarden()">Save Progress</button>
-    <button onclick="logout()">Logout</button>
+    <div id="topBar">
+      <span id="levelDisplay">Level: Beginner</span>
+      <span id="plantsGrownDisplay">Plants Grown: 0</span>
+      <button id="backBtn" onclick="goHome()">🏠 Home</button>
+    </div>
+    <div id="seedSelection">
+      <p>Choose a seed:</p>
+      <div id="seedButtons"></div>
+    </div>
+    <div id="garden" style="display:none;">
+      <p id="plantStage">Ready to plant your <span id="seedType"></span>!</p>
+      <button id="plantBtn" onclick="plantSeed()">Plant Seed</button>
+      <div id="wateringCanContainer">
+        <span id="wateringCan" class="hidden">🚿</span>
+        <div id="droplets"></div>
+      </div>
+      <button id="waterBtn" onclick="waterPlant()" style="display:none;">Water Plant</button>
+      <button id="restartBtn" onclick="restartGame()" style="display:none;">Restart</button>
+      <div id="plantImg"></div>
+      <div id="progressBarContainer" style="display:none;">
+        <div id="progressBar"></div>
+      </div>
+      <p id="tip"></p>
+    </div>
   </div>
   <script src="game.js"></script>
 </body>
