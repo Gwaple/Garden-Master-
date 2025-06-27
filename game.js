@@ -3,14 +3,9 @@
 
 // --- PLANTS & LEVELS ---
 const allPlants = [
-  {
-    name: "Carrot", emoji: "🥕", seeds: "🌱", sprout: "🥬",
-    tips: [
-      "Carrots like loose, sandy soil!",
-      "Carrots need sunlight to grow strong.",
-      "Remember to water your carrots gently."
-    ]
-  },
+  
+
+  
   {
     name: "Tomato", emoji: "🍅", seeds: "🌱", sprout: "🌿",
     tips: [
