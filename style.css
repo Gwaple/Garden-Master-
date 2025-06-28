@@ -31,5 +31,23 @@ body {
   0% { box-shadow: 0 0 24px 6px #b0ffb0, 0 0 0 4px #d0f9c4 inset;}
   100% { box-shadow: 0 0 40px 18px #c5ffb3, 0 0 0 4px #d0f9c4 inset;}
 }
-/* --- Seasonal/Event Effects and eventBanner code from previous answers here --- */
-/* Copy the full seasonal CSS from my previous responses under this line! */
+#eventBanner {
+  background: #ffeaea;
+  color: #b22222;
+  font-size: 1.18em;
+  padding: 10px 0;
+  border-radius: 16px;
+  margin-bottom: 18px;
+  text-align: center;
+  box-shadow: 0 2px 10px #e5a1a1aa;
+  border: 2px solid #ffb6b6;
+  display:none;
+  font-weight: bold;
+  z-index: 20;
+  animation: eventBannerPop 0.7s;
+}
+@keyframes eventBannerPop {
+  0% { opacity: 0; transform: scale(0.7);}
+  60% { opacity: .8; transform: scale(1.09);}
+  100% { opacity: 1; transform: scale(1);}
+}
