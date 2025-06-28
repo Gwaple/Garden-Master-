@@ -1,4 +1,4 @@
-// ... your existing JS up to and including getNextLevel() ...
+// ... all your game logic & login/register code before ...
 
 // --- HOMEPAGE ---
 function showHome() {
@@ -54,5 +54,29 @@ function showHome() {
       highlight = `🌟 Next plant will unlock <b>${nextLevel.title} ${nextLevel.emoji}</b>!`;
   }
   document.getElementById('homeHighlight').innerHTML = highlight;
+}
+
+// --- LEVEL PROGRESS BAR AND DOTS (call after progress changes) ---
+function showLevelProgress() {
+  // Progress bar and milestone dots
+  let curr = getCurrentLevel();
+  let next = getNextLevel();
+  let currIdx = gardenerLevels.findIndex(l=>l.title===curr.title);
+  // Progress bar
+  let start = curr.plants, end = next ? next.plants : curr.plants+10;
+  let prog = Math.max(0, Math.min(1, (plantsGrown-start)/(end-start||1)));
+  document.getElementById("levelProgressBar").style.width = (prog*100) + "%";
+  // Dots
+  let levelMilestones = document.getElementById("levelMilestones");
+  levelMilestones.innerHTML = "";
+  gardenerLevels.forEach((lvl, i) => {
+    let dot = document.createElement("span");
+    dot.className = "level-dot";
+    if (plantsGrown >= lvl.plants) dot.classList.add('completed');
+    if (i === currIdx) dot.classList.add('active');
+    dot.innerHTML = `<span class="dot-emoji">${lvl.emoji}</span>
+      <span class="dot-label">${lvl.title}<br><span style="font-size:0.9em">${lvl.plants}</span></span>`;
+    levelMilestones.appendChild(dot);
+  });
 }
 
