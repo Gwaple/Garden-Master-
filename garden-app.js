@@ -60,6 +60,18 @@ const themeData = {
   }
 };
 
+// ---- YOUR REGULAR PLANTS (edit/add as you wish) ----
+const allPlants = [
+  {name:"Carrot", emoji:"🥕", seeds:"🥕", sprout:"🌱", tips:["Plant in loose soil!"]},
+  {name:"Potato", emoji:"🥔", seeds:"🥔", sprout:"🌱", tips:["Needs lots of earth."]},
+  {name:"Tomato", emoji:"🍅", seeds:"🍅", sprout:"🌱", tips:["Likes sunlight!"]},
+  {name:"Corn", emoji:"🌽", seeds:"🌽", sprout:"🌱", tips:["Keep well-watered."]},
+  {name:"Radish", emoji:"🌶️", seeds:"🌶️", sprout:"🌱", tips:["Grows quickly!"]},
+  {name:"Lettuce", emoji:"🥬", seeds:"🥬", sprout:"🌱", tips:["Cool and moist soil."]},
+  // ...add more as you wish!
+];
+
+// ---- THEME/EVENT SYSTEM ----
 function getCurrentThemeAndEvent() {
   const now = new Date();
   const m = now.getMonth(), d = now.getDate(), hour = now.getHours();
@@ -118,16 +130,9 @@ function setThemeSound(soundUrl) {
   }
 }
 
-// --- GARDENING GAME LOGIC (EXAMPLE, EXPAND AS NEEDED) ---
-const allPlants = [
-  {name:"Tulip", emoji:"🌷", seeds:"🌱", sprout:"🌿", tips:["Easy to grow!"]},
-  {name:"Rose", emoji:"🌹", seeds:"🌱", sprout:"🌿", tips:["Needs some love!"]},
-  {name:"Cactus", emoji:"🌵", seeds:"🌵", sprout:"🌱", tips:["Very little water."]}
-];
-const seedSelection = document.getElementById('seedSelection');
-const garden = document.getElementById('garden');
-const seedButtonsDiv = document.getElementById('seedButtons');
+// ---- SEED SELECTION (always shows regular + event plants) ----
 function showSeedSelection() {
+  // Combine your regular plants and current event exotics
   const unlockedPlants = [...allPlants, ...(window.currentExoticPlants||[])];
   seedSelection.style.display = '';
   garden.style.display = 'none';
@@ -139,7 +144,9 @@ function showSeedSelection() {
     seedButtonsDiv.appendChild(btn);
   });
 }
-// ...Add your login, register, plantSeed, waterPlant, etc logic here...
+
+// ---- REST OF YOUR GAME LOGIC (LOGIN, REGISTER, GROWING, ETC) ----
+// ... (keep your existing functions for login, register, startGame, plantSeed, waterPlant, etc.) ...
 
 window.onload = function() {
   applyThemeEffects();
