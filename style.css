@@ -1,329 +1,100 @@
-body {
-  background: #d9f5db;
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
-h1 {
-  color: #1b5e20;
-  margin-bottom: 0.5em;
-}
-#authArea, #homePage, #gameArea {
-  margin: 0 auto;
-  width: 600px;
-  max-width: 98vw;
-}
-#homeWelcome {
-  margin: 20px auto 12px auto;
-  padding: 20px 0 10px 0;
-  background: linear-gradient(90deg, #b2ffb6 0%, #e0ffd6 60%, #f3fff3 100%);
-  border-radius: 18px;
-  box-shadow: 0 2px 12px #b0bec5;
-  width: 410px;
-  max-width: 95vw;
-}
-.home-emoji {
-  font-size: 2.6em;
-  display: block;
-  margin-bottom: 4px;
-  animation: bounceIn 1.2s;
-}
-@keyframes bounceIn {
-  0% { transform: scale(0.7); opacity: 0.2;}
-  70% { transform: scale(1.2);}
-  100% { transform: scale(1); opacity: 1;}
-}
-.welcome-msg {
-  font-size: 1.35em;
-  color: #1c421f;
-  font-weight: 600;
-  margin-bottom: 7px;
-}
-#homeQuote {
-  font-size: 1.08em;
-  color: #388e3c;
-  margin-top: 0;
-  font-style: italic;
-  min-height: 22px;
-  transition: color 0.3s;
-  animation: fadeIn 1.2s;
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1;}
-}
-#homePanel {
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 2px 10px #b0bec5;
-  padding: 24px 0 18px 0;
-  margin: 10px auto 18px auto;
-  width: 430px;
-  max-width: 96vw;
-}
-.statsRow {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 18px;
-}
-.statTitle {
-  font-size: 0.93em;
-  color: #388e3c;
-  margin-bottom: 2px;
-}
-#homeLevel, #homePlants, #homeMost {
-  font-size: 1.25em;
-  margin-bottom: 2px;
-}
-#homeLevelProgressBarWrap {
-  width: 300px;
-  height: 13px;
-  background: #e0e0e0;
-  border-radius: 7px;
-  margin: 5px auto 4px auto;
-  overflow: hidden;
-  box-shadow: 0 0 8px #bdf7c1 inset;
-}
-#homeLevelProgressBar {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, #81c784, #388e3c);
-  border-radius: 7px;
-  box-shadow: 0 0 16px 2px #77ff83cc, 0 0 6px 2px #43a04760;
-  transition: width 0.5s cubic-bezier(.65,1.7,.62,.85), box-shadow 0.5s;
-  will-change: width;
-}
-#homeNextMilestone {
-  font-size: 1.03em;
-  color: #1b5e20;
-  margin-top: 4px;
-}
-#homeHighlight {
-  margin-top: 10px;
-  font-size: 1.08em;
-  color: #2d7c29;
-  min-height: 24px;
-  font-weight: 500;
-}
-.big-btn {
-  font-size: 22px;
-  padding: 14px 40px;
-  background: #43a047;
-  color: #fff;
-  margin: 16px 0 0 0;
-  border-radius: 16px;
-  border: none;
-  box-shadow: 0 1px 8px #b0bec5;
-  transition: background 0.2s, transform 0.2s;
-}
-.animate-btn:hover {
-  background: #2e7d32;
-  transform: scale(1.07);
-}
-.logout-btn {
-  margin-top: 20px;
-  margin-left: 0;
-  padding: 7px 32px;
-  font-size: 17px;
-  background: #c8e6c9;
-  color: #1b5e20;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0 1px 5px #b0bec5;
-  transition: background 0.15s;
-}
-.logout-btn:hover {
-  background: #388e3c;
-  color: #fff;
-}
-#homeStats {
-  display: none;
-}
-#garden {
-  background: #fff;
-  margin: 28px auto 0 auto;
-  border-radius: 18px;
-  box-shadow: 0 2px 16px #b0bec5;
-  padding: 40px 0 60px 0;
-  width: 520px;
-  min-height: 380px;
-  max-width: 96vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-#grownPlantsStats {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #f3fff3;
-  border-radius: 7px;
-  padding: 7px 10px 6px 10px;
-  font-size: 0.98em;
-  display: none;
-  width: 270px;
-  min-height: unset;
-  text-align: left;
-  box-shadow: 0 1px 6px #c8e6c9;
-  border: 1px solid #c8e6c9;
-  z-index: 10;
-  opacity: 0.96;
-}
-#grownPlantsStats ul {
-  margin: 6px 0 0 0;
-  padding-left: 14px;
-  font-size: 0.97em;
-}
-#grownPlantsStats li {
-  margin-bottom: 2px;
-}
-#seedSelection {
-  margin-top: 18px;
-}
-#seedButtons button {
-  margin: 5px 8px;
-  font-size: 1.1em;
-  padding: 8px 20px;
-}
-.hidden {
-  visibility: hidden;
-}
-.animate {
-  transform: rotate(-40deg) scale(1.05);
-}
-.waterDroplet {
-  font-size: 1.4em;
-  position: relative;
-  top: 8px;
-  transition: top 0.7s;
-  animation: drop 0.7s;
-}
-@keyframes drop {
-  0% { top:0; opacity:1; }
-  80% { top:14px; opacity:1; }
-  100% { top:20px; opacity:0; }
-}
-#levelProgressContainer {
-  width: 520px;
-  margin: 24px auto 0 auto;
-  position: relative;
-  height: 62px;
-  max-width: 96vw;
-  background: linear-gradient(90deg, #e6ffe9 0%, #e0ffd6 100%);
-  border-radius: 15px;
-  box-shadow: 0 2px 12px #b0bec5;
-  padding: 15px 0 5px 0;
-  z-index: 2;
-  transition: box-shadow 0.4s;
-  animation: pop-in 0.7s cubic-bezier(.28,2,.45,.86);
-}
-@keyframes pop-in {
-  0% { transform: scaleY(0.85); opacity:0.2;}
-  60% { transform: scaleY(1.08);}
-  100% { transform: scaleY(1); opacity:1;}
-}
-#levelProgressBarWrap {
-  width: 90%;
-  height: 18px;
-  background: #e0e0e0;
-  border-radius: 9px;
-  overflow: hidden;
-  margin: 0 auto;
-  position: relative;
-  box-shadow: 0 0 8px #bdf7c1 inset;
-}
-#levelProgressBar {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, #b6ffb2 0%, #43a047 90%);
-  border-radius: 9px;
-  box-shadow: 0 0 16px 2px #77ff83cc, 0 0 6px 2px #43a04760;
-  transition: width 0.5s cubic-bezier(.65,1.7,.62,.85), box-shadow 0.5s;
-  will-change: width;
-}
-#levelMilestones {
-  width: 92%;
-  position: absolute;
-  left: 4%; top: 19px;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
-  z-index: 2;
-}
-.level-dot {
-  position: relative;
-  width: 25px;
-  height: 25px;
-  margin-left: -4px;
-  margin-right: -4px;
-  border-radius: 50%;
-  background: #bdbdbd;
-  border: 2.5px solid #fff;
-  box-shadow: 0 1px 3px #b0bec5;
-  transition: background 0.2s, border 0.2s, transform 0.25s cubic-bezier(.23,2,.16,.94);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.15em;
-  transform: scale(1);
-  animation: dot-pop 0.55s;
-}
-@keyframes dot-pop {
-  0% { transform: scale(0.5);}
-  60% { transform: scale(1.2);}
-  100% { transform: scale(1);}
-}
-.level-dot.active, .level-dot.completed {
-  background: #43a047;
-  color: #fff;
-  border: 2.5px solid #388e3c;
-  box-shadow: 0 0 8px 2px #7bff7b60;
-  transform: scale(1.13);
-  z-index: 3;
-}
-.level-dot.completed {
-  background: #aed581;
-  color: #2e7d32;
-  border: 2.5px solid #81c784;
-  box-shadow: 0 0 7px 1px #b3ffb3cc;
-  transform: scale(1.05);
-  z-index: 2;
-}
-.level-dot .dot-label {
-  position: absolute;
-  top: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.92em;
-  color: #333;
-  white-space: nowrap;
-  font-weight: 500;
-  text-shadow: 0 1px 5px #f3fff3;
-}
-.level-dot .dot-emoji {
-  font-size: 1.18em;
-  vertical-align: middle;
-}
-@media (max-width: 700px) {
-  #garden, #levelProgressContainer {
-    width: 98vw !important;
-    min-width: unset;
-    max-width: 99vw !important;
-  }
-}
-@media (max-width: 560px) {
-  #levelProgressBarWrap, #levelMilestones {
-    width: 96vw !important;
-    min-width: 120px;
-  }
-  #garden, #levelProgressContainer, #grownPlantsStats {
-    width: 98vw !important;
-    min-width: unset;
-    max-width: 99vw !important;
-  }
-  #grownPlantsStats {
-    width: 90vw !important;
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gardening Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- LOGIN/REGISTER SYSTEM -->
+  <div id="authArea">
+    <div id="loginBox">
+      <h2>Login</h2>
+      <input id="loginUser" placeholder="Username"><br>
+      <input id="loginPass" type="password" placeholder="Password"><br>
+      <button onclick="login()">Login</button>
+      <button onclick="showRegister()">Register</button>
+      <div id="loginMsg"></div>
+    </div>
+    <div id="registerBox" style="display:none;">
+      <h2>Create Account</h2>
+      <input id="regUser" placeholder="Username"><br>
+      <input id="regPass" type="password" placeholder="Password"><br>
+      <button onclick="register()">Register</button>
+      <button onclick="showLogin()">Back to Login</button>
+      <div id="registerMsg"></div>
+    </div>
+  </div>
+
+  <!-- HOMEPAGE -->
+  <div id="homePage" style="display:none;">
+    <div id="homeWelcome">
+      <span class="home-emoji">🌻</span>
+      <span class="sparkle-emoji">✨</span>
+      <div class="welcome-msg">Welcome back, <b id="homeUser"></b>!</div>
+      <div id="homeQuote"></div>
+    </div>
+    <div id="homePanel">
+      <div class="statsRow">
+        <div>
+          <div class="statTitle">Level</div>
+          <div id="homeLevel"></div>
+        </div>
+        <div>
+          <div class="statTitle">Plants Grown</div>
+          <div id="homePlants"></div>
+        </div>
+        <div>
+          <div class="statTitle">Most Grown</div>
+          <div id="homeMost"></div>
+        </div>
+      </div>
+      <div id="homeProgressBox">
+        <div class="statTitle">Progress to Next Level</div>
+        <div id="homeLevelProgressBarWrap"><div id="homeLevelProgressBar"></div></div>
+        <div id="homeNextMilestone"></div>
+      </div>
+      <div id="homeHighlight"></div>
+    </div>
+    <button onclick="startGame()" class="big-btn animate-btn">🌱 Start Gardening!</button>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+  </div>
+
+  <!-- GAME AREA -->
+  <div id="gameArea" style="display:none;">
+    <button onclick="goHome()">Home</button>
+    <div id="levelDisplay"></div>
+    <div id="plantsGrownDisplay"></div>
+    <div id="seedSelection">
+      <h2>Choose a seed:</h2>
+      <div id="seedButtons"></div>
+    </div>
+    <div id="garden" style="display:none;">
+      <div class="garden-shimmer"></div>
+      <p id="plantStage"></p>
+      <div id="plantImg" style="font-size:3em;margin:10px"></div>
+      <div>
+        <span id="wateringCan" class="hidden" style="font-size:2em;transition:transform 0.5s;">🪣</span>
+        <span id="droplets"></span>
+      </div>
+      <div id="progressBarContainer" style="width:120px;height:14px;background:#e0e0e0;border-radius:8px;display:none;margin:10px auto">
+        <div id="progressBar" style="height:100%;background:#4caf50;width:0;border-radius:7px;"></div>
+      </div>
+      <button id="plantBtn" onclick="plantSeed()">Plant Seed</button>
+      <button id="waterBtn" onclick="waterPlant()" style="display:none;">Water</button>
+      <button id="restartBtn" onclick="restartGame()" style="display:none;">Grow Another</button>
+      <p id="tip" style="color:#388e3c;font-style:italic;"></p>
+      <div style="font-size:1.2em;margin:10px 0">Seed type: <span id="seedType"></span></div>
+      <div id="grownPlantsStats"></div>
+    </div>
+    <!-- Progress tracker BELOW the garden -->
+    <div id="levelProgressContainer">
+      <div id="levelProgressBarWrap">
+        <div id="levelProgressBar"></div>
+      </div>
+      <div id="levelMilestones"></div>
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
