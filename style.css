@@ -1,3 +1,36 @@
+#authArea, #gameArea {
+  margin: 0 auto;
+  width: 440px;
+}
+#loginBox, #registerBox {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px;
+  margin: 40px auto 0 auto;
+  box-shadow: 0 4px 16px #90caf9;
+  width: 320px;
+}
+input {
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #b0bec5;
+  font-size: 1.1em;
+  width: 90%;
+}
+button {
+  margin: 7px;
+  padding: 8px 24px;
+  font-size: 18px;
+  background: #90caf9;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover {
+  background: #1565c0;
+  color: #fff;
+}
 body {
   background: #d0f6c6;
   font-family: Comic Sans MS, 'Comic Sans', cursive, sans-serif;
