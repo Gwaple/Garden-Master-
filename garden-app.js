@@ -5,7 +5,7 @@ const themeData = {
     banner: "🌸 Cherry Blossom Festival! Sakura Bonsai is here!",
     event: "cherry-blossom",
     exotics: [
-      {name:"Sakura Bonsai",emoji:"🌸",seeds:"🌱",sprout:"🌿",tips:["A rare and beautiful blossom!"], growTime: 3500}
+      {name:"Sakura Bonsai",emoji:"🌸",seeds:"🌱",sprout:"🌿",plant:"🌸",tips:["A rare and beautiful blossom!"], growTime: 3500}
     ]
   },
   summer: {
@@ -13,7 +13,7 @@ const themeData = {
     banner: "🦋 Butterfly Season! Golden Sunflower is blooming!",
     event: "",
     exotics: [
-      {name:"Golden Sunflower",emoji:"🌻✨",seeds:"🌱",sprout:"🌻",tips:["Shines with the sun."], growTime: 3500}
+      {name:"Golden Sunflower",emoji:"🌻✨",seeds:"🌱",sprout:"🌻",plant:"🌻",tips:["Shines with the sun."], growTime: 3500}
     ]
   },
   autumn: {
@@ -21,8 +21,8 @@ const themeData = {
     banner: "🍂 Harvest Festival! Special Pumpkin and Mushrooms!",
     event: "harvest",
     exotics: [
-      {name:"Pumpkin King",emoji:"🎃👑",seeds:"🌰",sprout:"🍃",tips:["A legendary autumn squash."], growTime: 4200},
-      {name:"Fairy Mushroom",emoji:"🍄✨",seeds:"🌱",sprout:"🍄",tips:["A magical mushroom!"], growTime: 3000}
+      {name:"Pumpkin King",emoji:"🎃👑",seeds:"🌰",sprout:"🍃",plant:"🎃",tips:["A legendary autumn squash."], growTime: 4200},
+      {name:"Fairy Mushroom",emoji:"🍄✨",seeds:"🌱",sprout:"🍄",plant:"🍄",tips:["A magical mushroom!"], growTime: 3000}
     ]
   },
   winter: {
@@ -30,8 +30,8 @@ const themeData = {
     banner: "❄️ Winter Solstice! Frost Lotus and Ghost Orchid unlocked!",
     event: "winter-solstice",
     exotics: [
-      {name:"Frost Lotus",emoji:"❄️🪷",seeds:"🌱",sprout:"🌿",tips:["Petals shimmer in the snow."], growTime: 3800},
-      {name:"Ghost Orchid",emoji:"👻🪷",seeds:"🌱",sprout:"🌿",tips:["Blooms in the frost."], growTime: 3600}
+      {name:"Frost Lotus",emoji:"❄️🪷",seeds:"🌱",sprout:"🌿",plant:"❄️🪷",tips:["Petals shimmer in the snow."], growTime: 3800},
+      {name:"Ghost Orchid",emoji:"👻🪷",seeds:"🌱",sprout:"🌿",plant:"👻🪷",tips:["Blooms in the frost."], growTime: 3600}
     ]
   },
   night: {
@@ -39,7 +39,7 @@ const themeData = {
     banner: "🌙 Night Garden! Moonflower and Fireflies appear!",
     event: "",
     exotics: [
-      {name:"Moonflower",emoji:"🌙🌸",seeds:"🌱",sprout:"🌿",tips:["Blooms only at night."], growTime: 3100}
+      {name:"Moonflower",emoji:"🌙🌸",seeds:"🌱",sprout:"🌿",plant:"🌙🌸",tips:["Blooms only at night."], growTime: 3100}
     ]
   },
   "lunar-new-year": {
@@ -47,7 +47,7 @@ const themeData = {
     banner: "🧧 Lunar New Year! Lucky Bamboo unlocked!",
     event: "lunar-new-year",
     exotics:[
-      {name:"Lucky Bamboo",emoji:"🎍",seeds:"🌱",sprout:"🌿",tips:["Brings good fortune!"], growTime: 3300}
+      {name:"Lucky Bamboo",emoji:"🎍",seeds:"🌱",sprout:"🌿",plant:"🎍",tips:["Brings good fortune!"], growTime: 3300}
     ]
   },
   halloween: {
@@ -55,34 +55,39 @@ const themeData = {
     banner: "🎃 Halloween! Bat Flower and Ghostly Mists!",
     event:"halloween",
     exotics:[
-      {name:"Bat Flower",emoji:"🦇🌸",seeds:"🌰",sprout:"🌿",tips:["Blooms under a spooky moon."], growTime: 3400}
+      {name:"Bat Flower",emoji:"🦇🌸",seeds:"🌰",sprout:"🌿",plant:"🦇🌸",tips:["Blooms under a spooky moon."], growTime: 3400}
     ]
   }
 };
-// --- YOUR REGULAR PLANTS ---
 const allPlants = [
-  {name:"Carrot", emoji:"🥕", seeds:"🥕", sprout:"🌱", tips:["Plant in loose soil!"], growTime: 3500},
-  {name:"Potato", emoji:"🥔", seeds:"🥔", sprout:"🌱", tips:["Needs lots of earth."], growTime: 4000},
-  {name:"Tomato", emoji:"🍅", seeds:"🍅", sprout:"🌱", tips:["Likes sunlight!"], growTime: 3500},
-  {name:"Corn", emoji:"🌽", seeds:"🌽", sprout:"🌱", tips:["Keep well-watered."], growTime: 4200},
-  {name:"Radish", emoji:"🌶️", seeds:"🌶️", sprout:"🌱", tips:["Grows quickly!"], growTime: 2500},
-  {name:"Lettuce", emoji:"🥬", seeds:"🥬", sprout:"🌱", tips:["Cool and moist soil."], growTime: 3000}
+  {name:"Carrot", emoji:"🥕", seeds:"🌰", sprout:"🌱", plant:"🥕", tips:["Plant in loose soil!"], growTime: 3500},
+  {name:"Potato", emoji:"🥔", seeds:"🌰", sprout:"🌱", plant:"🥔", tips:["Needs lots of earth."], growTime: 4000},
+  {name:"Tomato", emoji:"🍅", seeds:"🍅", sprout:"🌱", plant:"🍅", tips:["Likes sunlight!"], growTime: 3500},
+  {name:"Corn", emoji:"🌽", seeds:"🌽", sprout:"🌿", plant:"🌽", tips:["Keep well-watered."], growTime: 4200},
+  {name:"Radish", emoji:"🌶️", seeds:"🌶️", sprout:"🌱", plant:"🌶️", tips:["Grows quickly!"], growTime: 2500},
+  {name:"Lettuce", emoji:"🥬", seeds:"🥬", sprout:"🌱", plant:"🥬", tips:["Cool and moist soil."], growTime: 3000}
 ];
-
+// --- SAVE/LOAD PROGRESS ---
+function saveProgress(user, stats) {
+  localStorage.setItem("garden-progress-"+user, JSON.stringify(stats));
+}
+function loadProgress(user) {
+  const raw = localStorage.getItem("garden-progress-"+user);
+  if (raw) return JSON.parse(raw);
+  return {total:0, grown:{}};
+}
 // --- SEASON CHOOSER LOGIC ---
 let manualSeason = "auto";
 document.getElementById("seasonSelect").addEventListener("change", function() {
   manualSeason = this.value;
   applyThemeEffects();
-  showSeedSelection(); // update exotics too
+  showSeedSelection();
 });
-
 // --- THEME/EVENT SYSTEM ---
 function getCurrentThemeAndEvent() {
   if (manualSeason !== "auto") {
     return {theme: manualSeason, event: (themeData[manualSeason]||{}).event || ""};
   }
-  // Default: auto by date/time
   const now = new Date();
   const m = now.getMonth(), d = now.getDate(), hour = now.getHours();
   if (hour < 6 || hour >= 20) return {theme:"night", event:""};
@@ -135,13 +140,16 @@ function setThemeSound(soundUrl) {
     window.addEventListener("click", playOnInteraction);
   }
 }
-
 // --- SEED SELECTION + GROWING ---
 const seedSelection = document.getElementById('seedSelection');
 const garden = document.getElementById('garden');
 const seedButtonsDiv = document.getElementById('seedButtons');
+const plantAnimDiv = document.getElementById('plantAnim');
 let currentPlant = null;
 let growTimer = null;
+let growStage = 0; // 0=seed, 1=sprout, 2=full
+let currentUser = "";
+let progressStats = {total:0, grown:{}};
 function showSeedSelection() {
   const unlockedPlants = [...allPlants, ...(window.currentExoticPlants||[])];
   seedSelection.style.display = '';
@@ -158,24 +166,30 @@ function selectSeed(name) {
   garden.style.display = '';
   seedSelection.style.display = 'none';
   currentPlant = [...allPlants, ...(window.currentExoticPlants||[])].find(p => p.name === name);
-  document.getElementById("plantImg").textContent = currentPlant.emoji;
-  document.getElementById("plantStage").textContent = "Sprout!";
+  growStage = 0;
+  renderPlantAnim();
+  document.getElementById("plantStage").textContent = "Seed planted!";
   document.getElementById("tip").textContent = currentPlant.tips[0] || "";
   document.getElementById("seedType").textContent = currentPlant.name;
-  document.getElementById("plantBtn").style.display = "";
-  document.getElementById("waterBtn").style.display = "none";
+  document.getElementById("growBtn").style.display = "";
   document.getElementById("restartBtn").style.display = "none";
   hideProgressBar();
 }
-function plantSeed() {
-  document.getElementById("plantStage").textContent = "Growing...";
-  document.getElementById("plantBtn").style.display = "none";
-  document.getElementById("waterBtn").style.display = "none";
-  document.getElementById("restartBtn").style.display = "none";
-  document.getElementById("tip").textContent = "Give it some water to help it grow!";
-  showProgressBar(0);
-
-  // Simulate growth progress
+function growPlant() {
+  if (growStage === 0) {
+    growStage = 1;
+    renderPlantAnim();
+    document.getElementById("plantStage").textContent = "Sprouting...";
+    document.getElementById("tip").textContent = "A little more care!";
+    showProgressBar(0);
+    startGrowthTimer();
+  } else if (growStage === 1) {
+    // Already growing, ignore
+  } else if (growStage === 2) {
+    // Already full, ignore
+  }
+}
+function startGrowthTimer() {
   let elapsed = 0;
   const total = currentPlant.growTime || 3500;
   growTimer = setInterval(() => {
@@ -185,21 +199,44 @@ function plantSeed() {
     if (elapsed >= total) {
       clearInterval(growTimer);
       growTimer = null;
-      document.getElementById("plantStage").textContent = "Ready to harvest! Click Water!";
-      document.getElementById("waterBtn").style.display = "";
-      document.getElementById("tip").textContent = "Click Water to finish growing!";
+      growStage = 2;
+      renderPlantAnim();
+      document.getElementById("plantStage").textContent = "Fully grown!";
+      document.getElementById("tip").textContent = "Press Grow/Space to harvest!";
+      document.getElementById("growBtn").style.display = "";
+      document.getElementById("restartBtn").style.display = "";
+      hideProgressBar();
+      progressStats.total++;
+      progressStats.grown[currentPlant.name] = (progressStats.grown[currentPlant.name]||0) + 1;
+      saveProgress(currentUser, progressStats);
+      updateProgressStats();
     }
   }, 100);
-}
-function waterPlant() {
-  hideProgressBar();
-  document.getElementById("plantStage").textContent = "Fully Grown!";
-  document.getElementById("waterBtn").style.display = "none";
-  document.getElementById("restartBtn").style.display = "";
-  document.getElementById("tip").textContent = "Well done!";
+  document.getElementById("growBtn").style.display = "none";
 }
 function restartGame() {
   showSeedSelection();
+}
+function renderPlantAnim() {
+  if (!currentPlant) return;
+  let html = "";
+  if (growStage === 0) {
+    html = `<div style="text-align:center;font-size:2.2em;margin-top:60px;">
+      <span style="position:relative;top:0">${currentPlant.seeds || "🌱"}</span>
+      <div style="width:36px;height:10px;margin:0 auto;background:#a28250;border-radius:50%;filter:blur(0.5px);margin-top:2px"></div>
+    </div>`;
+  } else if (growStage === 1) {
+    html = `<div style="text-align:center;font-size:2.2em;margin-top:35px;">
+      <span style="position:relative;top:0">${currentPlant.sprout || "🌱"}</span>
+      <div style="width:44px;height:16px;margin:0 auto;background:#a28250;border-radius:50%;filter:blur(0.5px);margin-top:2px"></div>
+    </div>`;
+  } else if (growStage === 2) {
+    html = `<div style="text-align:center;font-size:2.5em;margin-top:15px;">
+      <span style="position:relative;top:0">${currentPlant.plant || currentPlant.emoji}</span>
+      <div style="width:50px;height:18px;margin:0 auto;background:#a28250;border-radius:50%;filter:blur(0.5px);margin-top:2px"></div>
+    </div>`;
+  }
+  plantAnimDiv.innerHTML = html;
 }
 function showProgressBar(percent) {
   let barWrap = document.getElementById("progressBarContainer");
@@ -217,8 +254,12 @@ function hideProgressBar() {
   barWrap.style.display = "none";
   bar.style.width = "0%";
 }
-
-// --- NAVIGATION + LOGIN/REGISTER (demo only, replace with real logic) ---
+function updateProgressStats() {
+  document.getElementById("progressStats").innerHTML =
+    `<b>Total grown:</b> ${progressStats.total}<br>` +
+    Object.keys(progressStats.grown).map(k=>`${k}: ${progressStats.grown[k]}`).join(", ");
+}
+// --- NAVIGATION + LOGIN/REGISTER ---
 function showLogin() {
   document.getElementById("loginBox").style.display = "";
   document.getElementById("registerBox").style.display = "none";
@@ -228,10 +269,13 @@ function showRegister() {
   document.getElementById("registerBox").style.display = "";
 }
 function login() {
+  currentUser = document.getElementById("loginUser").value || "Gardener";
+  progressStats = loadProgress(currentUser);
+  updateProgressStats();
   document.getElementById("authArea").style.display = "none";
   document.getElementById("homePage").style.display = "";
   document.getElementById("gameArea").style.display = "none";
-  document.getElementById("homeUser").textContent = document.getElementById("loginUser").value || "Gardener";
+  document.getElementById("homeUser").textContent = currentUser;
 }
 function register() {
   showLogin();
@@ -249,8 +293,21 @@ function logout() {
   document.getElementById("authArea").style.display = "";
   document.getElementById("homePage").style.display = "none";
   document.getElementById("gameArea").style.display = "none";
+  currentUser = "";
 }
-
+// --- SPACEBAR CONTROLS ---
+document.addEventListener("keydown", function(e) {
+  if(document.getElementById("gameArea").style.display !== "none") {
+    if(e.code === "Space" && document.activeElement.tagName !== "INPUT") {
+      e.preventDefault();
+      if(document.getElementById("growBtn").style.display !== "none") {
+        growPlant();
+      } else if (document.getElementById("restartBtn").style.display !== "none") {
+        restartGame();
+      }
+    }
+  }
+});
 // --- STARTUP ---
 window.onload = function() {
   applyThemeEffects();
