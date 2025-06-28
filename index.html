@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- LOGIN/REGISTER SYSTEM (add above your game) -->
+  <!-- LOGIN/REGISTER SYSTEM -->
   <div id="authArea">
     <div id="loginBox">
       <h2>Login</h2>
@@ -25,15 +25,24 @@
       <div id="registerMsg"></div>
     </div>
   </div>
-  <!-- Your gardening game must be wrapped in #gameArea for this to work -->
+  <!-- HOMEPAGE -->
+  <div id="homePage" style="display:none;">
+    <h1>🌱 Gardening Game</h1>
+    <div id="homeStats"></div>
+    <button onclick="startGame()" class="big-btn">Start Gardening</button>
+    <button onclick="logout()" style="margin-left:1em;">Logout</button>
+  </div>
+  <!-- GAME AREA -->
   <div id="gameArea" style="display:none;">
-    <!-- === BEGIN: Your full gardening game HTML goes here === -->
-    <div id="homePage">
-      <h1>🌱 Gardening Game</h1>
-      <button onclick="startGame()">Start Gardening</button>
-    </div>
+    <button onclick="goHome()">Home</button>
     <div id="levelDisplay"></div>
     <div id="plantsGrownDisplay"></div>
+    <div id="levelProgressContainer">
+      <div id="levelProgressBarWrap">
+        <div id="levelProgressBar"></div>
+      </div>
+      <div id="levelMilestones"></div>
+    </div>
     <div id="seedSelection">
       <h2>Choose a seed:</h2>
       <div id="seedButtons"></div>
@@ -55,7 +64,6 @@
       <div style="font-size:1.2em;margin:10px 0">Seed type: <span id="seedType"></span></div>
     </div>
     <!-- Plant stats will be injected here -->
-    <!-- === END: Your gardening game HTML === -->
   </div>
   <script src="game.js"></script>
 </body>
