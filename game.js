@@ -1,4 +1,97 @@
+let currentUser = null;
 
+// --- Account System ---
+function hash(str) {
+  let h = 0; for (let i = 0; i < str.length; i++) h = Math.imul(31, h) + str.charCodeAt(i) | 0; return h.toString();
+}
+function getAccounts() {
+  return JSON.parse(localStorage.getItem("garden_accounts") || "{}");
+}
+function saveAccounts(accounts) {
+  localStorage.setItem("garden_accounts", JSON.stringify(accounts));
+}
+function login() {
+  let u = document.getElementById("loginUser").value.trim();
+  let p = document.getElementById("loginPass").value;
+  let accounts = getAccounts();
+  if (accounts[u] && accounts[u].pw === hash(p)) {
+    currentUser = u;
+    document.getElementById("authArea").style.display = "none";
+    document.getElementById("gameArea").style.display = "";
+    if (typeof loadProgress === "function") loadProgress();
+    document.getElementById("loginMsg").textContent = "";
+  } else {
+    document.getElementById("loginMsg").textContent = "Invalid username or password.";
+  }
+}
+function logout() {
+  currentUser = null;
+  document.getElementById("gameArea").style.display = "none";
+  document.getElementById("authArea").style.display = "";
+  document.getElementById("loginUser").value = "";
+  document.getElementById("loginPass").value = "";
+}
+function showRegister() {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("registerBox").style.display = "";
+  document.getElementById("registerMsg").textContent = "";
+}
+function showLogin() {
+  document.getElementById("registerBox").style.display = "none";
+  document.getElementById("loginBox").style.display = "";
+  document.getElementById("loginMsg").textContent = "";
+}
+function register() {
+  let u = document.getElementById("regUser").value.trim();
+  let p = document.getElementById("regPass").value;
+  let accounts = getAccounts();
+  if (!u || !p) {
+    document.getElementById("registerMsg").textContent = "Username and password required.";
+    return;
+  }
+  if (accounts[u]) {
+    document.getElementById("registerMsg").textContent = "Username already taken.";
+    return;
+  }
+  accounts[u] = { pw: hash(p), garden: null };
+  saveAccounts(accounts);
+  document.getElementById("registerMsg").textContent = "Account created! Please login.";
+  setTimeout(showLogin, 1200);
+}
+
+// --- Replace your save/load with these! ---
+// (Keep the rest of your gardening code exactly as it is.)
+function saveProgress() {
+  if (!currentUser) return;
+  let accounts = getAccounts();
+  // Save whatever you want (example assumes plantsGrown and grownPlantsList)
+  accounts[currentUser].garden = {
+    plantsGrown,
+    grownPlantsList
+    // ...add other state vars if you have them!
+  };
+  saveAccounts(accounts);
+}
+function loadProgress() {
+  if (!currentUser) return;
+  let accounts = getAccounts();
+  let garden = accounts[currentUser].garden;
+  if (garden) {
+    plantsGrown = typeof garden.plantsGrown === "number" ? garden.plantsGrown : 0;
+    grownPlantsList = Array.isArray(garden.grownPlantsList) ? garden.grownPlantsList : [];
+    // ...load any other state vars as needed!
+  } else {
+    plantsGrown = 0;
+    grownPlantsList = [];
+  }
+}
+
+// --- On page load, show login ---
+window.onload = function() {
+  document.getElementById("authArea").style.display = "";
+  document.getElementById("gameArea").style.display = "none";
+  showLogin();
+};
 
 
 // --- PLANTS & LEVELS ---
