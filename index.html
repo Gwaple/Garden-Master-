@@ -6,6 +6,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Background audio for themes -->
+  <audio id="bgSound" loop></audio>
+  <!-- Seasonal/side effects overlay -->
+  <div id="themeEffects"></div>
+
   <!-- LOGIN/REGISTER SYSTEM -->
   <div id="authArea">
     <div id="loginBox" class="box glow">
@@ -28,6 +33,7 @@
 
   <!-- HOMEPAGE -->
   <div id="homePage" style="display:none;">
+    <div id="eventBanner" style="display:none;"></div>
     <div id="homeWelcome" class="box glow">
       <span class="home-emoji">🌻</span>
       <span class="sparkle-emoji">✨</span>
@@ -88,7 +94,6 @@
         <div style="font-size:1.2em;margin:10px 0">Seed type: <span id="seedType"></span></div>
         <div id="grownPlantsStats"></div>
       </div>
-      <!-- Progress tracker BELOW the garden -->
       <div id="levelProgressContainer" class="box">
         <div id="levelProgressBarWrap">
           <div id="levelProgressBar"></div>
