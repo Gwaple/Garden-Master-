@@ -1,21 +1,25 @@
-
-    <div id="loginBox">
-      <h2>Login</h2>
-      <input id="loginUser" placeholder="Username"><br>
-      <input id="loginPass" type="password" placeholder="Password"><br>
-      <button onclick="login()">Login</button>
-      <button onclick="showRegister()">Register</button>
-      <div id="loginMsg"></div>
-    </div>
-    <div id="registerBox" style="display:none;">
-      <h2>Create Account</h2>
-      <input id="regUser" placeholder="Username"><br>
-      <input id="regPass" type="password" placeholder="Password"><br>
-      <button onclick="register()">Register</button>
-      <button onclick="showLogin()">Back to Login</button>
-      <div id="registerMsg"></div>
-    </div>
+<div id="authArea">
+  <div id="loginBox">
+    <h2>Login</h2>
+    <input id="loginUser" placeholder="Username"><br>
+    <input id="loginPass" type="password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+    <button onclick="showRegister()">Register</button>
+    <div id="loginMsg"></div>
   </div>
+  <div id="registerBox" style="display:none;">
+    <h2>Create Account</h2>
+    <input id="regUser" placeholder="Username"><br>
+    <input id="regPass" type="password" placeholder="Password"><br>
+    <button onclick="register()">Register</button>
+    <button onclick="showLogin()">Back to Login</button>
+    <div id="registerMsg"></div>
+  </div>
+</div>
+<!-- Your existing gardening game HTML should be inside this: -->
+<div id="gameArea" style="display:none;">
+  <!-- ... existing gardening game content ... -->
+</div>
 
   <div id="homePage">
     <h1>🌱 Garden Game for Kids 🌻</h1>
