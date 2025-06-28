@@ -32,71 +32,32 @@
       <span class="home-emoji">🌻</span>
       <span class="sparkle-emoji">✨</span>
       <div class="welcome-msg">Welcome back, <b id="homeUser"></b>!</div>
-      <div id="homeQuote"></div>
     </div>
     <div id="homePanel" class="box">
-      <div class="statsRow">
-        <div>
-          <div class="statTitle">Level</div>
-          <div id="homeLevel"></div>
-        </div>
-        <div>
-          <div class="statTitle">Plants Grown</div>
-          <div id="homePlants"></div>
-        </div>
-        <div>
-          <div class="statTitle">Most Grown</div>
-          <div id="homeMost"></div>
-        </div>
-      </div>
-      <div id="homeProgressBox">
-        <div class="statTitle">Progress to Next Level</div>
-        <div id="homeLevelProgressBarWrap"><div id="homeLevelProgressBar"></div></div>
-        <div id="homeNextMilestone"></div>
-      </div>
-      <div id="homeHighlight"></div>
+      <button onclick="startGame()" class="big-btn animate-btn">🌱 Start Gardening!</button>
+      <button onclick="logout()" class="logout-btn">Logout</button>
     </div>
-    <button onclick="startGame()" class="big-btn animate-btn">🌱 Start Gardening!</button>
-    <button onclick="logout()" class="logout-btn">Logout</button>
   </div>
   <div id="gameArea" style="display:none;">
     <div class="box">
       <button onclick="goHome()">Home</button>
-      <div id="levelDisplay"></div>
-      <div id="plantsGrownDisplay"></div>
       <div id="seedSelection">
         <h2>Choose a seed:</h2>
         <div id="seedButtons"></div>
       </div>
       <div id="garden" class="box" style="display:none;">
-        <div class="garden-shimmer"></div>
         <p id="plantStage"></p>
         <div id="plantImg" style="font-size:3em;margin:10px"></div>
-        <div>
-          <span id="wateringCan" class="hidden" style="font-size:2em;transition:transform 0.5s;">🪣</span>
-          <span id="droplets"></span>
-        </div>
-        <div id="progressBarContainer" style="width:120px;height:14px;background:#e0e0e0;border-radius:8px;display:none;margin:10px auto">
-          <div id="progressBar" style="height:100%;background:#4caf50;width:0;border-radius:7px;"></div>
-        </div>
+        <p id="tip" style="color:#388e3c;font-style:italic;"></p>
+        <div style="font-size:1.2em;margin:10px 0">Seed type: <span id="seedType"></span></div>
         <button id="plantBtn" onclick="plantSeed()">Plant Seed</button>
         <button id="waterBtn" onclick="waterPlant()" style="display:none;">Water</button>
         <button id="restartBtn" onclick="restartGame()" style="display:none;">Grow Another</button>
-        <p id="tip" style="color:#388e3c;font-style:italic;"></p>
-        <div style="font-size:1.2em;margin:10px 0">Seed type: <span id="seedType"></span></div>
-        <div id="grownPlantsStats"></div>
-      </div>
-      <div id="levelProgressContainer" class="box">
-        <div id="levelProgressBarWrap">
-          <div id="levelProgressBar"></div>
-        </div>
-        <div id="levelMilestones"></div>
       </div>
     </div>
   </div>
   <script src="garden-app.js"></script>
 </body>
 </html>
-
 
     
