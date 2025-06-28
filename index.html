@@ -6,11 +6,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Background audio for themes -->
   <audio id="bgSound" loop></audio>
-  <!-- Seasonal/side effects overlay -->
   <div id="themeEffects"></div>
-
+  <!-- Event banner -->
+  <div id="eventBanner" style="display:none;"></div>
   <!-- LOGIN/REGISTER SYSTEM -->
   <div id="authArea">
     <div id="loginBox" class="box glow">
@@ -30,10 +29,8 @@
       <div id="registerMsg"></div>
     </div>
   </div>
-
   <!-- HOMEPAGE -->
   <div id="homePage" style="display:none;">
-    <div id="eventBanner" style="display:none;"></div>
     <div id="homeWelcome" class="box glow">
       <span class="home-emoji">🌻</span>
       <span class="sparkle-emoji">✨</span>
@@ -65,7 +62,6 @@
     <button onclick="startGame()" class="big-btn animate-btn">🌱 Start Gardening!</button>
     <button onclick="logout()" class="logout-btn">Logout</button>
   </div>
-
   <!-- GAME AREA -->
   <div id="gameArea" style="display:none;">
     <div class="box">
