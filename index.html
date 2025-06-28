@@ -9,6 +9,19 @@
   <audio id="bgSound" loop></audio>
   <div id="themeEffects"></div>
   <div id="eventBanner" style="display:none;"></div>
+  <div id="seasonChooser" class="box" style="max-width:300px;margin:24px auto;">
+    <label for="seasonSelect"><b>Choose Season/Event:</b></label>
+    <select id="seasonSelect">
+      <option value="auto">Auto (by date/time)</option>
+      <option value="spring">Spring</option>
+      <option value="summer">Summer</option>
+      <option value="autumn">Autumn</option>
+      <option value="winter">Winter</option>
+      <option value="night">Night</option>
+      <option value="lunar-new-year">Lunar New Year</option>
+      <option value="halloween">Halloween</option>
+    </select>
+  </div>
   <div id="authArea">
     <div id="loginBox" class="box glow">
       <h2>Login</h2>
@@ -50,6 +63,9 @@
         <div id="plantImg" style="font-size:3em;margin:10px"></div>
         <p id="tip" style="color:#388e3c;font-style:italic;"></p>
         <div style="font-size:1.2em;margin:10px 0">Seed type: <span id="seedType"></span></div>
+        <div id="progressBarContainer" style="width:120px;height:14px;background:#e0e0e0;border-radius:8px;display:none;margin:10px auto">
+          <div id="progressBar" style="height:100%;background:#4caf50;width:0;border-radius:7px;"></div>
+        </div>
         <button id="plantBtn" onclick="plantSeed()">Plant Seed</button>
         <button id="waterBtn" onclick="waterPlant()" style="display:none;">Water</button>
         <button id="restartBtn" onclick="restartGame()" style="display:none;">Grow Another</button>
