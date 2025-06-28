@@ -44,6 +44,12 @@ h1 {
   margin-top: 0;
   font-style: italic;
   min-height: 22px;
+  transition: color 0.3s;
+  animation: fadeIn 1.2s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1;}
 }
 #homePanel {
   background: #fff;
@@ -75,13 +81,16 @@ h1 {
   border-radius: 7px;
   margin: 5px auto 4px auto;
   overflow: hidden;
+  box-shadow: 0 0 8px #bdf7c1 inset;
 }
 #homeLevelProgressBar {
   height: 100%;
   width: 0;
   background: linear-gradient(90deg, #81c784, #388e3c);
   border-radius: 7px;
-  transition: width 0.4s cubic-bezier(.65,1.7,.62,.85);
+  box-shadow: 0 0 16px 2px #77ff83cc, 0 0 6px 2px #43a04760;
+  transition: width 0.5s cubic-bezier(.65,1.7,.62,.85), box-shadow 0.5s;
+  will-change: width;
 }
 #homeNextMilestone {
   font-size: 1.03em;
@@ -134,7 +143,7 @@ h1 {
   margin: 28px auto 0 auto;
   border-radius: 18px;
   box-shadow: 0 2px 16px #b0bec5;
-  padding: 40px 0 40px 0;
+  padding: 40px 0 60px 0;
   width: 520px;
   min-height: 380px;
   max-width: 96vw;
@@ -142,6 +151,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   position: relative;
+  z-index: 1;
 }
 #grownPlantsStats {
   position: absolute;
@@ -196,32 +206,47 @@ h1 {
   100% { top:20px; opacity:0; }
 }
 #levelProgressContainer {
-  width: 480px;
-  margin: 18px auto 0 auto;
+  width: 520px;
+  margin: 24px auto 0 auto;
   position: relative;
-  height: 54px;
+  height: 62px;
   max-width: 96vw;
+  background: linear-gradient(90deg, #e6ffe9 0%, #e0ffd6 100%);
+  border-radius: 15px;
+  box-shadow: 0 2px 12px #b0bec5;
+  padding: 15px 0 5px 0;
+  z-index: 2;
+  transition: box-shadow 0.4s;
+  animation: pop-in 0.7s cubic-bezier(.28,2,.45,.86);
+}
+@keyframes pop-in {
+  0% { transform: scaleY(0.85); opacity:0.2;}
+  60% { transform: scaleY(1.08);}
+  100% { transform: scaleY(1); opacity:1;}
 }
 #levelProgressBarWrap {
-  width: 100%;
-  height: 12px;
+  width: 90%;
+  height: 18px;
   background: #e0e0e0;
-  border-radius: 7px;
+  border-radius: 9px;
   overflow: hidden;
   margin: 0 auto;
   position: relative;
+  box-shadow: 0 0 8px #bdf7c1 inset;
 }
 #levelProgressBar {
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, #81c784, #388e3c);
-  border-radius: 7px;
-  transition: width 0.4s cubic-bezier(.65,1.7,.62,.85);
+  background: linear-gradient(90deg, #b6ffb2 0%, #43a047 90%);
+  border-radius: 9px;
+  box-shadow: 0 0 16px 2px #77ff83cc, 0 0 6px 2px #43a04760;
+  transition: width 0.5s cubic-bezier(.65,1.7,.62,.85), box-shadow 0.5s;
+  will-change: width;
 }
 #levelMilestones {
-  width: 100%;
+  width: 92%;
   position: absolute;
-  left: 0; top: 7px;
+  left: 4%; top: 19px;
   display: flex;
   justify-content: space-between;
   pointer-events: none;
@@ -229,55 +254,76 @@ h1 {
 }
 .level-dot {
   position: relative;
-  width: 20px;
-  height: 20px;
-  margin-left: -10px;
-  margin-right: -10px;
+  width: 25px;
+  height: 25px;
+  margin-left: -4px;
+  margin-right: -4px;
   border-radius: 50%;
   background: #bdbdbd;
-  border: 2px solid #fff;
+  border: 2.5px solid #fff;
   box-shadow: 0 1px 3px #b0bec5;
-  transition: background 0.2s, border 0.2s;
+  transition: background 0.2s, border 0.2s, transform 0.25s cubic-bezier(.23,2,.16,.94);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.05em;
+  font-size: 1.15em;
+  transform: scale(1);
+  animation: dot-pop 0.55s;
+}
+@keyframes dot-pop {
+  0% { transform: scale(0.5);}
+  60% { transform: scale(1.2);}
+  100% { transform: scale(1);}
 }
 .level-dot.active, .level-dot.completed {
   background: #43a047;
   color: #fff;
-  border: 2px solid #388e3c;
+  border: 2.5px solid #388e3c;
+  box-shadow: 0 0 8px 2px #7bff7b60;
+  transform: scale(1.13);
+  z-index: 3;
 }
 .level-dot.completed {
   background: #aed581;
   color: #2e7d32;
-  border: 2px solid #81c784;
+  border: 2.5px solid #81c784;
+  box-shadow: 0 0 7px 1px #b3ffb3cc;
+  transform: scale(1.05);
+  z-index: 2;
 }
 .level-dot .dot-label {
   position: absolute;
-  top: 24px;
+  top: 28px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.95em;
+  font-size: 0.92em;
   color: #333;
   white-space: nowrap;
   font-weight: 500;
+  text-shadow: 0 1px 5px #f3fff3;
 }
 .level-dot .dot-emoji {
   font-size: 1.18em;
   vertical-align: middle;
 }
+@media (max-width: 700px) {
+  #garden, #levelProgressContainer {
+    width: 98vw !important;
+    min-width: unset;
+    max-width: 99vw !important;
+  }
+}
 @media (max-width: 560px) {
-  #garden, #homePanel, #homeWelcome, #levelProgressContainer, #grownPlantsStats {
+  #levelProgressBarWrap, #levelMilestones {
+    width: 96vw !important;
+    min-width: 120px;
+  }
+  #garden, #levelProgressContainer, #grownPlantsStats {
     width: 98vw !important;
     min-width: unset;
     max-width: 99vw !important;
   }
   #grownPlantsStats {
     width: 90vw !important;
-  }
-  #homeLevelProgressBarWrap {
-    width: 92vw !important;
-    min-width: 150px;
   }
 }
