@@ -1,3 +1,8 @@
+body {
+  background: #e3f2fd;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
 #authArea, #gameArea {
   margin: 0 auto;
   width: 440px;
@@ -31,144 +36,38 @@ button:hover {
   background: #1565c0;
   color: #fff;
 }
-body {
-  background: #d0f6c6;
-  font-family: Comic Sans MS, 'Comic Sans', cursive, sans-serif;
-  text-align: center;
-  min-height: 100vh;
+#garden {
+  background: #fff;
+  margin: 28px auto 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px #b0bec5;
+  padding: 30px 0 30px 0;
+  width: 340px;
 }
-h1 {
-  color: #357a38;
-  margin-top: 30px;
-}
-#homePage {
-  background: #fffbe7;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px #a2d5ab;
-  width: 360px;
-  margin: 60px auto;
-  padding: 40px 24px;
-}
-#gameArea {
-  background: #fffbe7;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px #a2d5ab;
-  width: 380px;
-  margin: 40px auto;
-  padding: 30px 20px;
-}
-#topBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  background: #c8e6c9;
-  border-radius: 10px;
-  padding: 8px 12px;
-  font-size: 1.1em;
-}
-#backBtn {
-  background: #ffecb3;
-  color: #795548;
-  font-size: 1.2em;
-  border: none;
+#grownPlantsStats {
+  margin-top: 16px;
+  background: #e7ffd8;
   border-radius: 8px;
-  padding: 6px 14px;
-  cursor: pointer;
-  transition: background 0.2s;
+  padding: 10px;
+  font-size: 1em;
+  display: none;
 }
-#backBtn:hover {
-  background: #ffe082;
+.hidden {
+  visibility: hidden;
 }
-#seedButtons button {
-  margin: 6px;
-  padding: 12px 18px;
-  font-size: 1.1em;
-  background: #9be7a7;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-#seedButtons button:hover {
-  background: #66bb6a;
-  color: #fff;
-}
-button {
-  margin: 10px;
-  padding: 12px 24px;
-  font-size: 20px;
-  background: #9be7a7;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-button:hover {
-  background: #66bb6a;
-  color: #fff;
-}
-#plantImg {
-  margin: 25px 0;
-  font-size: 95px;
-  min-height: 95px;
-  transition: font-size 0.3s;
-}
-#tip {
-  color: #4e7d3a;
-  font-size: 18px;
-  margin-top: 12px;
-  min-height: 32px;
-}
-#progressBarContainer {
-  width: 80%;
-  background: #c8e6c9;
-  border-radius: 10px;
-  margin: 20px auto 0 auto;
-  height: 18px;
-}
-#progressBar {
-  height: 18px;
-  background: #66bb6a;
-  border-radius: 10px;
-  width: 0%;
-  transition: width 0.3s;
-}
-#wateringCanContainer {
-  height: 50px;
-  margin-bottom: 8px;
-  position: relative;
-}
-#wateringCan {
-  font-size: 40px;
-  opacity: 1;
-  transition: transform 0.3s, opacity 0.3s;
-  display: inline-block;
-}
-#wateringCan.animate {
-  transform: translateY(15px) rotate(-20deg) scale(1.18);
-  opacity: 0.7;
-}
-#wateringCan.hidden {
-  opacity: 0;
-}
-#droplets {
-  position: absolute;
-  left: 55%;
-  top: 40px;
-  pointer-events: none;
-  width: 60px;
-  height: 60px;
+.animate {
+  transform: rotate(-40deg) scale(1.05);
 }
 .waterDroplet {
-  position: absolute;
-  left: 0;
-  color: #2196f3;
-  font-size: 28px;
-  animation: drop 0.7s cubic-bezier(.23,1.22,.36,1.02) forwards;
+  font-size: 1.4em;
+  position: relative;
+  top: 8px;
+  transition: top 0.7s;
+  animation: drop 0.7s;
 }
 @keyframes drop {
-  0% { top: 0; opacity: 1;}
-  70% { top: 40px; opacity: 1; }
-  100% { top: 60px; opacity: 0; }
+  0% { top:0; opacity:1; }
+  80% { top:14px; opacity:1; }
+  100% { top:20px; opacity:0; }
 }
+
