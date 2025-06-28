@@ -1,10 +1,10 @@
 body {
-  background: linear-gradient(135deg, #e7ffd9 0%, #bdf7c6 40%, #a8e063 100%);
   min-height: 100vh;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   position: relative;
+  transition: background 1s;
 }
 .box {
   background: rgba(255,255,255,0.93);
@@ -50,4 +50,100 @@ body {
   0% { opacity: 0; transform: scale(0.7);}
   60% { opacity: .8; transform: scale(1.09);}
   100% { opacity: 1; transform: scale(1);}
+}
+body.theme-spring {
+  background: linear-gradient(135deg, #e7ffd9 0%, #bdf7c6 40%, #a8e063 100%);
+}
+body.theme-summer {
+  background: linear-gradient(135deg, #c1eafd 0%, #f6fbd9 50%, #ffe484 100%);
+}
+body.theme-autumn {
+  background: linear-gradient(135deg, #ffe0b3 0%, #ffa95e 40%, #ffdc92 100%);
+}
+body.theme-winter {
+  background: linear-gradient(135deg, #d6f0ff 0%, #f0f8ff 60%, #ffffff 100%);
+}
+body.theme-winter #themeEffects::before {
+  content: "";
+  pointer-events:none;
+  position: fixed;
+  z-index: 10;
+  left:0; top:0; right:0; bottom:0;
+  background:
+    url('https://pngimg.com/d/snowflake_PNG7580.png') repeat left 6% top/50px 100px,
+    url('https://pngimg.com/d/snowflake_PNG7580.png') repeat right 6% bottom/50px 100px;
+  opacity: 0.23;
+  animation: snow-fall 10s linear infinite;
+}
+@keyframes snow-fall {
+  0% { background-position: left 6% 0, right 6% 0; }
+  100% { background-position: left 6% 700px, right 6% 700px; }
+}
+body.theme-spring #themeEffects::before {
+  content: "";
+  pointer-events:none;
+  position: fixed;
+  z-index: 10;
+  left:0; top:0; right:0; bottom:0;
+  background: url('https://pngimg.com/d/petals_PNG16.png') repeat-y left 8%/60px 160px,
+              url('https://pngimg.com/d/petals_PNG16.png') repeat-y right 8%/60px 160px;
+  mix-blend-mode: lighten;
+  opacity: 0.10;
+  animation: petals-float 8s linear infinite;
+}
+@keyframes petals-float {
+  0% { background-position: left 8% 0, right 8% 0; }
+  100% { background-position: left 8% 500px, right 8% 500px; }
+}
+body.theme-summer #themeEffects::before {
+  content: "";
+  pointer-events:none;
+  position: fixed;
+  z-index: 10;
+  left:0; top:0; right:0; bottom:0;
+  background:
+    url('https://openmoji.org/data/color/svg/1F98B.svg') left 8% top 18%/40px 40px no-repeat,
+    url('https://openmoji.org/data/color/svg/1F98B.svg') right 12% top 65%/40px 40px no-repeat;
+  opacity: 0.15;
+  animation: butterfly-float 7.8s linear infinite alternate;
+}
+@keyframes butterfly-float {
+  0% { background-position: left 8% 18%, right 12% 65%; }
+  100% { background-position: left 8% 65%, right 12% 18%; }
+}
+body.theme-autumn #themeEffects::before {
+  content: "";
+  pointer-events:none;
+  position: fixed;
+  z-index: 10;
+  left:0; top:0; right:0; bottom:0;
+  background:
+    url('https://pngimg.com/d/autumn_leaves_PNG3612.png') left 8% top/44px 88px no-repeat,
+    url('https://pngimg.com/d/autumn_leaves_PNG3612.png') right 8% bottom/44px 88px no-repeat;
+  opacity: 0.14;
+  animation: leaves-fall 10s linear infinite;
+}
+@keyframes leaves-fall {
+  0% { background-position: left 8% 0, right 8% 0; }
+  100% { background-position: left 8% 500px, right 8% 500px; }
+}
+body.theme-night {
+  background: linear-gradient(135deg, #202032 0%, #25254a 60%, #333366 100%);
+  color: #e0e6f0;
+}
+body.theme-night #themeEffects::before {
+  content: "";
+  pointer-events:none;
+  position: fixed;
+  z-index: 10;
+  left:0; top:0; right:0; bottom:0;
+  background:
+    url('https://openmoji.org/data/color/svg/1F573.svg') left 12% top 28%/40px 40px no-repeat,
+    url('https://openmoji.org/data/color/svg/1F573.svg') right 15% top 62%/40px 40px no-repeat;
+  opacity: 0.10;
+  animation: firefly-blink 2s infinite alternate;
+}
+@keyframes firefly-blink {
+  0% { opacity: 0.10;}
+  100% { opacity: 0.21;}
 }
