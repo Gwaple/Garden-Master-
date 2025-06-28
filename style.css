@@ -3,9 +3,14 @@ body {
   text-align: center;
   font-family: Arial, sans-serif;
 }
-#authArea, #gameArea {
+h1 {
+  color: #1b5e20;
+  margin-bottom: 0.5em;
+}
+#authArea, #homePage, #gameArea {
   margin: 0 auto;
-  width: 440px;
+  width: 600px;
+  max-width: 98vw;
 }
 #loginBox, #registerBox {
   background: #fff;
@@ -31,26 +36,60 @@ button {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: background 0.2s;
 }
-button:hover {
+button:hover, .big-btn:hover {
   background: #1565c0;
   color: #fff;
+}
+.big-btn {
+  font-size: 22px;
+  padding: 14px 40px;
+  background: #43a047;
+  color: #fff;
+  margin-top: 1em;
+}
+#homeStats {
+  margin: 20px auto 30px auto;
+  background: #fff;
+  border-radius: 14px;
+  padding: 25px 0 20px 0;
+  box-shadow: 0 2px 10px #b0bec5;
+  font-size: 1.18em;
+  width: 330px;
+  min-height: 55px;
 }
 #garden {
   background: #fff;
   margin: 28px auto 0 auto;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px #b0bec5;
-  padding: 30px 0 30px 0;
-  width: 340px;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px #b0bec5;
+  padding: 40px 0 40px 0;
+  width: 520px;
+  min-height: 380px;
+  max-width: 96vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 #grownPlantsStats {
   margin-top: 16px;
   background: #e7ffd8;
   border-radius: 8px;
-  padding: 10px;
+  padding: 10px 16px;
   font-size: 1em;
   display: none;
+  width: 440px;
+  max-width: 92vw;
+  text-align: left;
+}
+#seedSelection {
+  margin-top: 18px;
+}
+#seedButtons button {
+  margin: 5px 8px;
+  font-size: 1.1em;
+  padding: 8px 20px;
 }
 .hidden {
   visibility: hidden;
@@ -70,4 +109,82 @@ button:hover {
   80% { top:14px; opacity:1; }
   100% { top:20px; opacity:0; }
 }
-
+#levelProgressContainer {
+  width: 480px;
+  margin: 18px auto 0 auto;
+  position: relative;
+  height: 54px;
+  max-width: 96vw;
+}
+#levelProgressBarWrap {
+  width: 100%;
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 7px;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+}
+#levelProgressBar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #81c784, #388e3c);
+  border-radius: 7px;
+  transition: width 0.4s cubic-bezier(.65,1.7,.62,.85);
+}
+#levelMilestones {
+  width: 100%;
+  position: absolute;
+  left: 0; top: 7px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 2;
+}
+.level-dot {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-right: -10px;
+  border-radius: 50%;
+  background: #bdbdbd;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px #b0bec5;
+  transition: background 0.2s, border 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05em;
+}
+.level-dot.active, .level-dot.completed {
+  background: #43a047;
+  color: #fff;
+  border: 2px solid #388e3c;
+}
+.level-dot.completed {
+  background: #aed581;
+  color: #2e7d32;
+  border: 2px solid #81c784;
+}
+.level-dot .dot-label {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.95em;
+  color: #333;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.level-dot .dot-emoji {
+  font-size: 1.18em;
+  vertical-align: middle;
+}
+@media (max-width: 560px) {
+  #garden, #levelProgressContainer, #grownPlantsStats {
+    width: 98vw !important;
+    min-width: unset;
+    max-width: 99vw !important;
+  }
+}
