@@ -60,15 +60,14 @@ const themeData = {
   }
 };
 
-// ---- YOUR REGULAR PLANTS (edit/add as you wish) ----
+// ---- YOUR VEGGIE/GARDEN PLANTS ----
 const allPlants = [
   {name:"Carrot", emoji:"🥕", seeds:"🥕", sprout:"🌱", tips:["Plant in loose soil!"]},
   {name:"Potato", emoji:"🥔", seeds:"🥔", sprout:"🌱", tips:["Needs lots of earth."]},
   {name:"Tomato", emoji:"🍅", seeds:"🍅", sprout:"🌱", tips:["Likes sunlight!"]},
   {name:"Corn", emoji:"🌽", seeds:"🌽", sprout:"🌱", tips:["Keep well-watered."]},
   {name:"Radish", emoji:"🌶️", seeds:"🌶️", sprout:"🌱", tips:["Grows quickly!"]},
-  {name:"Lettuce", emoji:"🥬", seeds:"🥬", sprout:"🌱", tips:["Cool and moist soil."]},
-  // ...add more as you wish!
+  {name:"Lettuce", emoji:"🥬", seeds:"🥬", sprout:"🌱", tips:["Cool and moist soil."]}
 ];
 
 // ---- THEME/EVENT SYSTEM ----
@@ -130,9 +129,12 @@ function setThemeSound(soundUrl) {
   }
 }
 
-// ---- SEED SELECTION (always shows regular + event plants) ----
+// ---- SEED SELECTION ----
+const seedSelection = document.getElementById('seedSelection');
+const garden = document.getElementById('garden');
+const seedButtonsDiv = document.getElementById('seedButtons');
+
 function showSeedSelection() {
-  // Combine your regular plants and current event exotics
   const unlockedPlants = [...allPlants, ...(window.currentExoticPlants||[])];
   seedSelection.style.display = '';
   garden.style.display = 'none';
@@ -145,9 +147,58 @@ function showSeedSelection() {
   });
 }
 
-// ---- REST OF YOUR GAME LOGIC (LOGIN, REGISTER, GROWING, ETC) ----
-// ... (keep your existing functions for login, register, startGame, plantSeed, waterPlant, etc.) ...
+// ---- REST OF YOUR GAME LOGIC (login, register, plantSeed, grow, etc) goes here ----
 
+// Example login/register logic (add your real logic as needed)
+function showLogin() {
+  document.getElementById("loginBox").style.display = "";
+  document.getElementById("registerBox").style.display = "none";
+}
+function showRegister() {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("registerBox").style.display = "";
+}
+function login() {
+  // Dummy login for demo
+  document.getElementById("authArea").style.display = "none";
+  document.getElementById("homePage").style.display = "";
+  document.getElementById("gameArea").style.display = "none";
+  document.getElementById("homeUser").textContent = document.getElementById("loginUser").value || "Gardener";
+}
+function register() {
+  // Dummy register for demo
+  showLogin();
+}
+
+// Example navigation
+function startGame() {
+  document.getElementById("homePage").style.display = "none";
+  document.getElementById("gameArea").style.display = "";
+  showSeedSelection();
+}
+function goHome() {
+  document.getElementById("homePage").style.display = "";
+  document.getElementById("gameArea").style.display = "none";
+}
+function logout() {
+  document.getElementById("authArea").style.display = "";
+  document.getElementById("homePage").style.display = "none";
+  document.getElementById("gameArea").style.display = "none";
+}
+
+// Example plant selection (add your plant logic as needed)
+function selectSeed(name) {
+  garden.style.display = '';
+  seedSelection.style.display = 'none';
+  const plant = [...allPlants, ...(window.currentExoticPlants||[])].find(p => p.name === name);
+  document.getElementById("plantImg").textContent = plant.emoji;
+  document.getElementById("plantStage").textContent = "Sprout!";
+  document.getElementById("tip").textContent = plant.tips[0] || "";
+  document.getElementById("seedType").textContent = plant.name;
+  // ...add more plant growing logic here...
+}
+
+// ---- ON LOAD ----
 window.onload = function() {
   applyThemeEffects();
   document.getElementById("authArea").style.display = "";
