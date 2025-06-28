@@ -39,7 +39,6 @@ body::after {
   70% { opacity: 0.58; }
   100% { opacity: 0.68; }
 }
-/* --- Seasonal/Event Effects --- */
 body.theme-spring #themeEffects::before,
 body.event-cherry-blossom #themeEffects::before {
   content: "";
@@ -185,4 +184,4 @@ body.event-cherry-blossom #themeEffects::after {
   60% { opacity: .8; transform: scale(1.09);}
   100% { opacity: 1; transform: scale(1);}
 }
-/* ...Include all your previous .box, .glow, progress bar, sparkle, shimmer, confetti, and responsive CSS here... */
+/* ...rest of your previous .box, .glow, progress, sparkle, shimmer, confetti, etc from previous CSS... */
