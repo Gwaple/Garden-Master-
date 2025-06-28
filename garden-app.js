@@ -1,4 +1,4 @@
-// ---- THEME, EVENT, SOUND, AND EXOTIC PLANTS ----
+// --- THEME, EVENT, SOUND, AND EXOTIC PLANTS ---
 const themeData = {
   spring: {
     sound: "assets/spring.mp3",
@@ -59,8 +59,7 @@ const themeData = {
     ]
   }
 };
-
-// ---- YOUR VEGGIE/GARDEN PLANTS ----
+// --- YOUR REGULAR PLANTS ---
 const allPlants = [
   {name:"Carrot", emoji:"🥕", seeds:"🥕", sprout:"🌱", tips:["Plant in loose soil!"]},
   {name:"Potato", emoji:"🥔", seeds:"🥔", sprout:"🌱", tips:["Needs lots of earth."]},
@@ -70,7 +69,7 @@ const allPlants = [
   {name:"Lettuce", emoji:"🥬", seeds:"🥬", sprout:"🌱", tips:["Cool and moist soil."]}
 ];
 
-// ---- THEME/EVENT SYSTEM ----
+// --- THEME/EVENT SYSTEM ---
 function getCurrentThemeAndEvent() {
   const now = new Date();
   const m = now.getMonth(), d = now.getDate(), hour = now.getHours();
@@ -86,13 +85,11 @@ function getCurrentThemeAndEvent() {
   if (m === 11 || m === 0 || m === 1) return {theme: "winter"};
   return {theme: "summer"};
 }
-
 function applyThemeEffects() {
   const {theme, event} = getCurrentThemeAndEvent();
   document.body.className = "";
   document.body.classList.add("theme-"+theme);
   if(event) document.body.classList.add("event-"+event);
-
   const banner = document.getElementById("eventBanner");
   let themeObj = themeData[theme] || {};
   if (banner && themeObj.banner) {
@@ -101,11 +98,9 @@ function applyThemeEffects() {
   } else if (banner) {
     banner.style.display = "none";
   }
-
   setThemeSound(themeObj.sound);
   window.currentExoticPlants = (themeObj.exotics || []);
 }
-
 function setThemeSound(soundUrl) {
   const audio = document.getElementById('bgSound');
   if (!audio) return;
@@ -129,11 +124,10 @@ function setThemeSound(soundUrl) {
   }
 }
 
-// ---- SEED SELECTION ----
+// --- BASIC GAME LOGIC ---
 const seedSelection = document.getElementById('seedSelection');
 const garden = document.getElementById('garden');
 const seedButtonsDiv = document.getElementById('seedButtons');
-
 function showSeedSelection() {
   const unlockedPlants = [...allPlants, ...(window.currentExoticPlants||[])];
   seedSelection.style.display = '';
@@ -146,10 +140,35 @@ function showSeedSelection() {
     seedButtonsDiv.appendChild(btn);
   });
 }
+function selectSeed(name) {
+  garden.style.display = '';
+  seedSelection.style.display = 'none';
+  const plant = [...allPlants, ...(window.currentExoticPlants||[])].find(p => p.name === name);
+  document.getElementById("plantImg").textContent = plant.emoji;
+  document.getElementById("plantStage").textContent = "Sprout!";
+  document.getElementById("tip").textContent = plant.tips[0] || "";
+  document.getElementById("seedType").textContent = plant.name;
+  document.getElementById("plantBtn").style.display = "";
+  document.getElementById("waterBtn").style.display = "none";
+  document.getElementById("restartBtn").style.display = "none";
+}
+function plantSeed() {
+  document.getElementById("plantStage").textContent = "Growing...";
+  document.getElementById("plantBtn").style.display = "none";
+  document.getElementById("waterBtn").style.display = "";
+  document.getElementById("tip").textContent = "Give it some water!";
+}
+function waterPlant() {
+  document.getElementById("plantStage").textContent = "Fully Grown!";
+  document.getElementById("waterBtn").style.display = "none";
+  document.getElementById("restartBtn").style.display = "";
+  document.getElementById("tip").textContent = "Well done!";
+}
+function restartGame() {
+  showSeedSelection();
+}
 
-// ---- REST OF YOUR GAME LOGIC (login, register, plantSeed, grow, etc) goes here ----
-
-// Example login/register logic (add your real logic as needed)
+// --- NAVIGATION + LOGIN/REGISTER (demo only, replace with real logic) ---
 function showLogin() {
   document.getElementById("loginBox").style.display = "";
   document.getElementById("registerBox").style.display = "none";
@@ -159,18 +178,14 @@ function showRegister() {
   document.getElementById("registerBox").style.display = "";
 }
 function login() {
-  // Dummy login for demo
   document.getElementById("authArea").style.display = "none";
   document.getElementById("homePage").style.display = "";
   document.getElementById("gameArea").style.display = "none";
   document.getElementById("homeUser").textContent = document.getElementById("loginUser").value || "Gardener";
 }
 function register() {
-  // Dummy register for demo
   showLogin();
 }
-
-// Example navigation
 function startGame() {
   document.getElementById("homePage").style.display = "none";
   document.getElementById("gameArea").style.display = "";
@@ -186,19 +201,7 @@ function logout() {
   document.getElementById("gameArea").style.display = "none";
 }
 
-// Example plant selection (add your plant logic as needed)
-function selectSeed(name) {
-  garden.style.display = '';
-  seedSelection.style.display = 'none';
-  const plant = [...allPlants, ...(window.currentExoticPlants||[])].find(p => p.name === name);
-  document.getElementById("plantImg").textContent = plant.emoji;
-  document.getElementById("plantStage").textContent = "Sprout!";
-  document.getElementById("tip").textContent = plant.tips[0] || "";
-  document.getElementById("seedType").textContent = plant.name;
-  // ...add more plant growing logic here...
-}
-
-// ---- ON LOAD ----
+// --- STARTUP ---
 window.onload = function() {
   applyThemeEffects();
   document.getElementById("authArea").style.display = "";
