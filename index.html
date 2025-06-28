@@ -64,12 +64,6 @@
     <button onclick="goHome()">Home</button>
     <div id="levelDisplay"></div>
     <div id="plantsGrownDisplay"></div>
-    <div id="levelProgressContainer">
-      <div id="levelProgressBarWrap">
-        <div id="levelProgressBar"></div>
-      </div>
-      <div id="levelMilestones"></div>
-    </div>
     <div id="seedSelection">
       <h2>Choose a seed:</h2>
       <div id="seedButtons"></div>
@@ -89,8 +83,14 @@
       <button id="restartBtn" onclick="restartGame()" style="display:none;">Grow Another</button>
       <p id="tip" style="color:#388e3c;font-style:italic;"></p>
       <div style="font-size:1.2em;margin:10px 0">Seed type: <span id="seedType"></span></div>
-      <!-- Stat box for grown plants -->
       <div id="grownPlantsStats"></div>
+    </div>
+    <!-- Progress tracker BELOW the garden -->
+    <div id="levelProgressContainer">
+      <div id="levelProgressBarWrap">
+        <div id="levelProgressBar"></div>
+      </div>
+      <div id="levelMilestones"></div>
     </div>
   </div>
   <script src="game.js"></script>
