@@ -1,100 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Gardening Game</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!-- LOGIN/REGISTER SYSTEM -->
-  <div id="authArea">
-    <div id="loginBox">
-      <h2>Login</h2>
-      <input id="loginUser" placeholder="Username"><br>
-      <input id="loginPass" type="password" placeholder="Password"><br>
-      <button onclick="login()">Login</button>
-      <button onclick="showRegister()">Register</button>
-      <div id="loginMsg"></div>
-    </div>
-    <div id="registerBox" style="display:none;">
-      <h2>Create Account</h2>
-      <input id="regUser" placeholder="Username"><br>
-      <input id="regPass" type="password" placeholder="Password"><br>
-      <button onclick="register()">Register</button>
-      <button onclick="showLogin()">Back to Login</button>
-      <div id="registerMsg"></div>
-    </div>
-  </div>
-
-  <!-- HOMEPAGE -->
-  <div id="homePage" style="display:none;">
-    <div id="homeWelcome">
-      <span class="home-emoji">🌻</span>
-      <span class="sparkle-emoji">✨</span>
-      <div class="welcome-msg">Welcome back, <b id="homeUser"></b>!</div>
-      <div id="homeQuote"></div>
-    </div>
-    <div id="homePanel">
-      <div class="statsRow">
-        <div>
-          <div class="statTitle">Level</div>
-          <div id="homeLevel"></div>
-        </div>
-        <div>
-          <div class="statTitle">Plants Grown</div>
-          <div id="homePlants"></div>
-        </div>
-        <div>
-          <div class="statTitle">Most Grown</div>
-          <div id="homeMost"></div>
-        </div>
-      </div>
-      <div id="homeProgressBox">
-        <div class="statTitle">Progress to Next Level</div>
-        <div id="homeLevelProgressBarWrap"><div id="homeLevelProgressBar"></div></div>
-        <div id="homeNextMilestone"></div>
-      </div>
-      <div id="homeHighlight"></div>
-    </div>
-    <button onclick="startGame()" class="big-btn animate-btn">🌱 Start Gardening!</button>
-    <button onclick="logout()" class="logout-btn">Logout</button>
-  </div>
-
-  <!-- GAME AREA -->
-  <div id="gameArea" style="display:none;">
-    <button onclick="goHome()">Home</button>
-    <div id="levelDisplay"></div>
-    <div id="plantsGrownDisplay"></div>
-    <div id="seedSelection">
-      <h2>Choose a seed:</h2>
-      <div id="seedButtons"></div>
-    </div>
-    <div id="garden" style="display:none;">
-      <div class="garden-shimmer"></div>
-      <p id="plantStage"></p>
-      <div id="plantImg" style="font-size:3em;margin:10px"></div>
-      <div>
-        <span id="wateringCan" class="hidden" style="font-size:2em;transition:transform 0.5s;">🪣</span>
-        <span id="droplets"></span>
-      </div>
-      <div id="progressBarContainer" style="width:120px;height:14px;background:#e0e0e0;border-radius:8px;display:none;margin:10px auto">
-        <div id="progressBar" style="height:100%;background:#4caf50;width:0;border-radius:7px;"></div>
-      </div>
-      <button id="plantBtn" onclick="plantSeed()">Plant Seed</button>
-      <button id="waterBtn" onclick="waterPlant()" style="display:none;">Water</button>
-      <button id="restartBtn" onclick="restartGame()" style="display:none;">Grow Another</button>
-      <p id="tip" style="color:#388e3c;font-style:italic;"></p>
-      <div style="font-size:1.2em;margin:10px 0">Seed type: <span id="seedType"></span></div>
-      <div id="grownPlantsStats"></div>
-    </div>
-    <!-- Progress tracker BELOW the garden -->
-    <div id="levelProgressContainer">
-      <div id="levelProgressBarWrap">
-        <div id="levelProgressBar"></div>
-      </div>
-      <div id="levelMilestones"></div>
-    </div>
-  </div>
-  <script src="game.js"></script>
-</body>
-</html>
+body {
+  background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+#authArea, #homePage, #gameArea {
+  margin: 30px auto;
+  width: 98vw;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  align-items: center;
+}
+.box {
+  background: rgba(255,255,255,0.93);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 #4caf5070, 0 0 0 4px #d0f9c4 inset;
+  padding: 30px 28px 22px 28px;
+  margin: 0 auto 18px auto;
+  width: 100%;
+  max-width: 460px;
+  transition: box-shadow 0.3s;
+  position: relative;
+  z-index: 2;
+  animation: popinbox 0.7s;
+}
+@keyframes popinbox {
+  0% { opacity:0; transform: scale(0.95);}
+  100% { opacity: 1; transform: scale(1);}
+}
+.box.glow {
+  box-shadow: 0 0 24px 6px #b0ffb0, 0 0 0 4px #d0f9c4 inset;
+  animation: box-glow 2.7s infinite alternate;
+}
+@keyframes box-glow {
+  0% { box-shadow: 0 0 24px 6px #b0ffb0, 0 0 0 4px #d0f9c4 inset;}
+  100% { box-shadow: 0 0 40px 18px #c5ffb3, 0 0 0 4px #d0f9c4 inset;}
+}
+h1, h2, h3 {
+  color: #276a1e;
+  letter-spacing: .01em;
+}
+input, button {
+  font-size: 1.1em;
+}
+input {
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1.5px solid #b0e898;
+  width: 92%;
+  outline: none;
+  background: #f2fbed;
+  transition: border 0.2s;
+}
+input:focus {
+  border: 2px solid #60a24b;
+  background: #e8ffe1;
+}
+button {
+  margin: 6px 7px 6px 0;
+  padding: 8px 26px;
+  font-size: 1.09em;
+  background: linear-gradient(90deg,#b0e898 50%,#60a24b 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #226d11;
+  font-weight: bold;
+  box-shadow: 0 1px 6px #b0e89860;
+  transition: background 0.23s, color 0.16s, transform 0.10s;
+}
+button:hover {
+  background: linear-gradient(90deg,#60a24b 40%,#b0e898 100%);
+  color: #fff;
+  transform: scale(1.05);
+}
+.big-btn {
+  font-size: 22px;
+  padding: 14px 40px;
+  background: linear-gradient(90deg, #43a047 60%, #b2ffb6 100%);
+  color: #fff;
+  margin: 16px 0 0 0;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 1px 18px #b0bec5;
+  animation: button-glow 2.4s infinite alternate;
+}
+@keyframes button-glow {
+  0% { box-shadow: 0 0 8px #b2ffb6, 0 0 0 #fff; }
+  100% { box-shadow: 0 0 32px #b2ffb6, 0 0 8px #fff; }
+}
+.logout-btn {
+  margin-top: 20px;
+  padding: 7px 32px;
+  font-size: 17px;
+  background: #c8e6c9;
+  color: #1b5e20;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 1px 5px #b0bec5;
+  transition: background 0.15s, color 0.15s;
+}
+.logout-btn:hover {
+  background: #388e3c;
+  color: #fff;
+}
+/* --- Sparkle/Effects/Progress Bars/Boxes as in previous answer --- */
+/* (Paste the rest from the previous style.css for effects, progress, shimmer, confetti, etc.) */
