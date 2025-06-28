@@ -47,6 +47,7 @@
       <div class="welcome-msg">Welcome back, <b id="homeUser"></b>!</div>
     </div>
     <div id="homePanel" class="box">
+      <div id="progressStats"></div>
       <button onclick="startGame()" class="big-btn animate-btn">🌱 Start Gardening!</button>
       <button onclick="logout()" class="logout-btn">Logout</button>
     </div>
@@ -60,14 +61,15 @@
       </div>
       <div id="garden" class="box" style="display:none;">
         <p id="plantStage"></p>
-        <div id="plantImg" style="font-size:3em;margin:10px"></div>
+        <div id="plantAnimContainer" style="height:120px;">
+          <div id="plantAnim"></div>
+        </div>
         <p id="tip" style="color:#388e3c;font-style:italic;"></p>
         <div style="font-size:1.2em;margin:10px 0">Seed type: <span id="seedType"></span></div>
         <div id="progressBarContainer" style="width:120px;height:14px;background:#e0e0e0;border-radius:8px;display:none;margin:10px auto">
           <div id="progressBar" style="height:100%;background:#4caf50;width:0;border-radius:7px;"></div>
         </div>
-        <button id="plantBtn" onclick="plantSeed()">Plant Seed</button>
-        <button id="waterBtn" onclick="waterPlant()" style="display:none;">Water</button>
+        <button id="growBtn" onclick="growPlant()" style="display:none;">Grow (Space)</button>
         <button id="restartBtn" onclick="restartGame()" style="display:none;">Grow Another</button>
       </div>
     </div>
@@ -75,5 +77,4 @@
   <script src="garden-app.js"></script>
 </body>
 </html>
-
     
