@@ -1,6 +1,5 @@
+// --- LOGIN SYSTEM ---
 let currentUser = null;
-
-// --- Account System ---
 function hash(str) {
   let h = 0; for (let i = 0; i < str.length; i++) h = Math.imul(31, h) + str.charCodeAt(i) | 0; return h.toString();
 }
@@ -59,112 +58,33 @@ function register() {
   setTimeout(showLogin, 1200);
 }
 
-// --- Replace your save/load with these! ---
-// (Keep the rest of your gardening code exactly as it is.)
-function saveProgress() {
-  if (!currentUser) return;
-  let accounts = getAccounts();
-  // Save whatever you want (example assumes plantsGrown and grownPlantsList)
-  accounts[currentUser].garden = {
-    plantsGrown,
-    grownPlantsList
-    // ...add other state vars if you have them!
-  };
-  saveAccounts(accounts);
-}
-function loadProgress() {
-  if (!currentUser) return;
-  let accounts = getAccounts();
-  let garden = accounts[currentUser].garden;
-  if (garden) {
-    plantsGrown = typeof garden.plantsGrown === "number" ? garden.plantsGrown : 0;
-    grownPlantsList = Array.isArray(garden.grownPlantsList) ? garden.grownPlantsList : [];
-    // ...load any other state vars as needed!
-  } else {
-    plantsGrown = 0;
-    grownPlantsList = [];
-  }
-}
+// === BEGIN: Your existing gardening game code (no changes needed except for save/load) ===
 
-// --- On page load, show login ---
-window.onload = function() {
-  document.getElementById("authArea").style.display = "";
-  document.getElementById("gameArea").style.display = "none";
-  showLogin();
-};
-
-
-// --- PLANTS & LEVELS ---
 const allPlants = [
-  
-
-  
-  {
-    name: "Tomato", emoji: "🍅", seeds: "🌱", sprout: "🌿",
-    tips: [
-      "Tomatoes love warm, sunny spots.",
-      "Give tomatoes support as they grow tall.",
-      "Water tomatoes at the base, not the leaves!"
-    ]
-  },
-  {
-    name: "Sunflower", emoji: "🌻", seeds: "🌱", sprout: "🌾",
-    tips: [
-      "Sunflowers always turn toward the sun.",
-      "Give sunflowers lots of space to grow tall!",
-      "Sunflowers attract bees and birds."
-    ]
-  },
-  {
-    name: "Pumpkin", emoji: "🎃", seeds: "🌰", sprout: "🍃",
-    tips: [
-      "Pumpkins need lots of space and water.",
-      "Pumpkins love sunshine!",
-      "Big leaves help pumpkins grow."
-    ]
-  },
-  {
-    name: "Lettuce", emoji: "🥬", seeds: "🌰", sprout: "🍃",
-    tips: [
-      "Lettuce likes cool weather.",
-      "Keep lettuce soil moist.",
-      "Pick leaves from the outside!"
-    ]
-  },
-  {
-    name: "Cucumber", emoji: "🥒", seeds: "🌰", sprout: "🌿",
-    tips: [
-      "Cucumbers need lots of water.",
-      "Give cucumbers a trellis to climb.",
-      "Harvest cucumbers when they're green and firm."
-    ]
-  }
+  { name: "Carrot", emoji: "🥕", seeds: "🌱", sprout: "🥬", tips: ["Carrots like loose, sandy soil!","Carrots need sunlight to grow strong.","Remember to water your carrots gently."] },
+  { name: "Tomato", emoji: "🍅", seeds: "🌱", sprout: "🌿", tips: ["Tomatoes love warm, sunny spots.","Give tomatoes support as they grow tall.","Water tomatoes at the base, not the leaves!"] },
+  { name: "Sunflower", emoji: "🌻", seeds: "🌱", sprout: "🌾", tips: ["Sunflowers always turn toward the sun.","Give sunflowers lots of space to grow tall!","Sunflowers attract bees and birds."] },
+  { name: "Pumpkin", emoji: "🎃", seeds: "🌰", sprout: "🍃", tips: ["Pumpkins need lots of space and water.","Pumpkins love sunshine!","Big leaves help pumpkins grow."] },
+  { name: "Lettuce", emoji: "🥬", seeds: "🌰", sprout: "🍃", tips: ["Lettuce likes cool weather.","Keep lettuce soil moist.","Pick leaves from the outside!"] },
+  { name: "Cucumber", emoji: "🥒", seeds: "🌰", sprout: "🌿", tips: ["Cucumbers need lots of water.","Give cucumbers a trellis to climb.","Harvest cucumbers when they're green and firm."] }
 ];
 const gardenerLevels = [
   { plants: 0, title: "Beginner", emoji: "🌱" },
-  { plants: 3, title: "Seed Starter", emoji: "🌰" },
-  { plants: 7, title: "Sprout Champion", emoji: "🌿" },
-  { plants: 12, title: "Leafy Learner", emoji: "🍃" },
-  { plants: 18, title: "Green Thumb", emoji: "🍀" },
-  { plants: 25, title: "Budding Botanist", emoji: "🪴" },
-  { plants: 35, title: "Flower Fanatic", emoji: "🌸" },
-  { plants: 50, title: "Expert Gardener", emoji: "🪻" },
-  { plants: 70, title: "Harvest Hero", emoji: "🥕" },
-  { plants: 100, title: "Master Gardener", emoji: "🏆" }
+  { plants: 3, title: "Growing Gardener", emoji: "🌿" },
+  { plants: 6, title: "Green Thumb", emoji: "🍀" },
+  { plants: 10, title: "Expert", emoji: "🌸" },
+  { plants: 15, title: "Master Gardener", emoji: "🏆" }
 ];
 
-// --- GAME STATE ---
 let selectedSeed = '';
 let stage = 0;
 let waterings = 0;
 const wateringsNeeded = 3;
 let currentPlant = null;
 
-// --- PROGRESS STATE ---
 let plantsGrown = 0;
 let grownPlantsList = []; // Array of {name, emoji, date, count}
 
-// --- DOM ELEMENTS ---
 const homePage = document.getElementById('homePage');
 const gameArea = document.getElementById('gameArea');
 const seedButtonsDiv = document.getElementById('seedButtons');
@@ -184,7 +104,6 @@ const dropletsDiv = document.getElementById('droplets');
 const levelDisplay = document.getElementById('levelDisplay');
 const plantsGrownDisplay = document.getElementById('plantsGrownDisplay');
 
-// --- ADD: DOM for grown plants stats ---
 let statsDiv = null;
 window.addEventListener('DOMContentLoaded', () => {
   statsDiv = document.createElement('div');
@@ -198,21 +117,23 @@ window.addEventListener('DOMContentLoaded', () => {
   gameArea.appendChild(statsDiv);
 });
 
-// --- SAVE AND LOAD PROGRESS ---
+// --- REPLACE: SAVE/LOAD PROGRESS with per-user versions ---
 function saveProgress() {
-  localStorage.setItem('gardenGameProgress', JSON.stringify({
+  if (!currentUser) return;
+  let accounts = getAccounts();
+  accounts[currentUser].garden = {
     plantsGrown,
     grownPlantsList
-  }));
+  };
+  saveAccounts(accounts);
 }
 function loadProgress() {
-  const data = localStorage.getItem('gardenGameProgress');
-  if (data) {
-    try {
-      const prog = JSON.parse(data);
-      plantsGrown = typeof prog.plantsGrown === "number" ? prog.plantsGrown : 0;
-      grownPlantsList = Array.isArray(prog.grownPlantsList) ? prog.grownPlantsList : [];
-    } catch { plantsGrown = 0; grownPlantsList = []; }
+  if (!currentUser) return;
+  let accounts = getAccounts();
+  let garden = accounts[currentUser].garden;
+  if (garden) {
+    plantsGrown = typeof garden.plantsGrown === "number" ? garden.plantsGrown : 0;
+    grownPlantsList = Array.isArray(garden.grownPlantsList) ? garden.grownPlantsList : [];
   } else {
     plantsGrown = 0;
     grownPlantsList = [];
@@ -238,7 +159,6 @@ function goHome() {
 function showSeedSelection() {
   seedSelection.style.display = '';
   garden.style.display = 'none';
-  // Dynamically create plant buttons
   seedButtonsDiv.innerHTML = '';
   allPlants.forEach(plant => {
     const btn = document.createElement('button');
@@ -390,12 +310,10 @@ function updateProgressBar() {
   progressBar.style.width = percent + "%";
 }
 
-// --- INITIALIZE ON LOAD ---
+// --- INITIALIZE ON LOAD: show login system ---
 window.onload = function() {
-  loadProgress();
-  updateLevelDisplay();
-  updatePlantsGrown();
-  showGrownPlantsStats();
+  document.getElementById("authArea").style.display = "";
+  document.getElementById("gameArea").style.display = "none";
+  showLogin();
 };
-
 
