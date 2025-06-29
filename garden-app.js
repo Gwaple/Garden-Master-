@@ -186,4 +186,109 @@ function drawSummer() {
     bgCtx.rotate(b.a);
     bgCtx.drawImage(bgImgCache.butterfly, -b.s/2,-b.s/2,b.s,b.s);
     bgCtx.restore();
-    b
+    b.x += b.vx; b.y += b.vy; b.a += b.va;
+    if(b.y > window.innerHeight+40) { b.y=-30; b.x=Math.random()*window.innerWidth; }
+    if(b.x < -40) b.x = window.innerWidth+40;
+    if(b.x > window.innerWidth+40) b.x = -40;
+  }
+  bgAnimFrame=requestAnimationFrame(drawSummer);
+}
+function startAutumn() {
+  endAllBG();
+  initBGCanvas();
+  bgActive = "autumn";
+  bgThings = [];
+  if (!bgImgCache.leaf) {
+    let img = new Image(); img.src = "https://pngimg.com/d/autumn_leaves_PNG3612.png";
+    bgImgCache.leaf = img;
+  }
+  for(let i=0;i<24;++i)
+    bgThings.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,w:36+Math.random()*30,h:20+Math.random()*14,vy:0.7+Math.random()*1.3,vx:(Math.random()-0.5)*1.1,a:Math.random()*Math.PI*2,va:(Math.random()-0.5)*0.06});
+  drawAutumn();
+}
+function drawAutumn() {
+  if(bgActive!=="autumn") return;
+  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
+  for (let l of bgThings) {
+    bgCtx.save();
+    bgCtx.globalAlpha=0.7;
+    bgCtx.translate(l.x+l.w/2,l.y+l.h/2);
+    bgCtx.rotate(l.a);
+    bgCtx.drawImage(bgImgCache.leaf,-l.w/2,-l.h/2,l.w,l.h);
+    bgCtx.restore();
+    l.x += l.vx; l.y += l.vy; l.a += l.va;
+    if(l.y > window.innerHeight+20){l.y=-30;l.x=Math.random()*window.innerWidth;}
+    if(l.x < -30) l.x = window.innerWidth+30;
+    if(l.x > window.innerWidth+30) l.x = -30;
+  }
+  bgAnimFrame=requestAnimationFrame(drawAutumn);
+}
+function startWinter() {
+  endAllBG();
+  initBGCanvas();
+  bgActive = "winter";
+  bgThings = [];
+  for(let i=0; i<80; ++i)
+    bgThings.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:1.7+Math.random()*3.7,d:0.5+Math.random()*1.5,vx:(-0.6+Math.random()*1.2),vy:1+Math.random()*1.5,o:0.5+Math.random()*0.5});
+  drawWinter();
+}
+function drawWinter() {
+  if(bgActive!=="winter") return;
+  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
+  for (let f of bgThings) {
+    bgCtx.globalAlpha = f.o;
+    bgCtx.beginPath();
+    bgCtx.arc(f.x, f.y, f.r, 0, 2*Math.PI);
+    bgCtx.fillStyle = "#fff";
+    bgCtx.shadowColor = "#bbf0ff";
+    bgCtx.shadowBlur = 6;
+    bgCtx.fill(); bgCtx.shadowBlur = 0;
+    f.x += f.vx; f.y += f.vy;
+    if(f.y > window.innerHeight+8){f.y=-6;f.x=Math.random()*window.innerWidth;}
+    if(f.x < -6) f.x = window.innerWidth+6;
+    if(f.x > window.innerWidth+6) f.x = -6;
+  }
+  bgCtx.globalAlpha=1;
+  bgAnimFrame=requestAnimationFrame(drawWinter);
+}
+function startNight() {
+  endAllBG();
+  initBGCanvas();
+  bgActive = "night";
+  bgThings = [];
+  for(let i=0;i<18;++i)
+    bgThings.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:1.7+Math.random()*2.7,a:Math.random()*2*Math.PI,va:(Math.random()-0.5)*0.03,blink:Math.random()*2*Math.PI});
+  drawNight();
+}
+function drawNight() {
+  if(bgActive!=="night") return;
+  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
+  let t = Date.now()/500;
+  for(let f of bgThings){
+    let glow = 0.35+0.65*Math.abs(Math.sin(t+f.blink));
+    bgCtx.save();
+    bgCtx.globalAlpha=glow;
+    bgCtx.beginPath();
+    bgCtx.arc(f.x,f.y,f.r,0,2*Math.PI);
+    bgCtx.fillStyle="#ffffa0";
+    bgCtx.shadowColor="#fffca8";
+    bgCtx.shadowBlur = 16*glow;
+    bgCtx.fill(); bgCtx.shadowBlur = 0;
+    bgCtx.restore();
+    f.x += Math.sin(t+f.blink)*0.09;
+    f.y += Math.cos(t+f.blink)*0.08;
+  }
+  bgAnimFrame=requestAnimationFrame(drawNight);
+}
+function startHalloween() {
+  endAllBG();
+  initBGCanvas();
+  bgActive = "halloween";
+  bgThings = [];
+  if (!bgImgCache.ghost) {
+    let img = new Image(); img.src = "https://openmoji.org/data/color/svg/1F47B.svg";
+    bgImgCache.ghost = img;
+  }
+  for(let i=0;i<14;++i)
+    bgThings.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,s:38+Math.random()*16,vy:0.5+Math.random
+
