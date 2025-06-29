@@ -1,4 +1,134 @@
-// ... keep your existing code above ...
+// --- THEME, EVENT, SOUND, AND EXOTIC PLANTS ---
+const themeData = {
+  spring: {
+    sound: "assets/spring.mp3",
+    banner: "🌸 Cherry Blossom Festival! Sakura Bonsai is here!",
+    event: "cherry-blossom",
+    exotics: [
+      {name:"Sakura Bonsai",emoji:"🌸",seeds:"🌱",sprout:"🌿",plant:"🌸",tips:["A rare and beautiful blossom!"], growTime: 3500}
+    ]
+  },
+  summer: {
+    sound: "assets/summer.mp3",
+    banner: "🦋 Butterfly Season! Golden Sunflower is blooming!",
+    event: "",
+    exotics: [
+      {name:"Golden Sunflower",emoji:"🌻✨",seeds:"🌱",sprout:"🌻",plant:"🌻",tips:["Shines with the sun."], growTime: 3500}
+    ]
+  },
+  autumn: {
+    sound: "assets/autumn.mp3",
+    banner: "🍂 Harvest Festival! Special Pumpkin and Mushrooms!",
+    event: "harvest",
+    exotics: [
+      {name:"Pumpkin King",emoji:"🎃👑",seeds:"🌰",sprout:"🍃",plant:"🎃",tips:["A legendary autumn squash."], growTime: 4200},
+      {name:"Fairy Mushroom",emoji:"🍄✨",seeds:"🌱",sprout:"🍄",plant:"🍄",tips:["A magical mushroom!"], growTime: 3000}
+    ]
+  },
+  winter: {
+    sound: "assets/winter.mp3",
+    banner: "❄️ Winter Solstice! Frost Lotus and Ghost Orchid unlocked!",
+    event: "winter-solstice",
+    exotics: [
+      {name:"Frost Lotus",emoji:"❄️🪷",seeds:"🌱",sprout:"🌿",plant:"❄️🪷",tips:["Petals shimmer in the snow."], growTime: 3800},
+      {name:"Ghost Orchid",emoji:"👻🪷",seeds:"🌱",sprout:"🌿",plant:"👻🪷",tips:["Blooms in the frost."], growTime: 3600}
+    ]
+  },
+  night: {
+    sound: "assets/night.mp3",
+    banner: "🌙 Night Garden! Moonflower and Fireflies appear!",
+    event: "",
+    exotics: [
+      {name:"Moonflower",emoji:"🌙🌸",seeds:"🌱",sprout:"🌿",plant:"🌙🌸",tips:["Blooms only at night."], growTime: 3100}
+    ]
+  },
+  "lunar-new-year": {
+    sound: "assets/lunar.mp3",
+    banner: "🧧 Lunar New Year! Lucky Bamboo unlocked!",
+    event: "lunar-new-year",
+    exotics:[
+      {name:"Lucky Bamboo",emoji:"🎍",seeds:"🌱",sprout:"🌿",plant:"🎍",tips:["Brings good fortune!"], growTime: 3300}
+    ]
+  },
+  halloween: {
+    sound: "assets/halloween.mp3",
+    banner: "🎃 Halloween! Bat Flower and Ghostly Mists!",
+    event:"halloween",
+    exotics:[
+      {name:"Bat Flower",emoji:"🦇🌸",seeds:"🌰",sprout:"🌿",plant:"🦇🌸",tips:["Blooms under a spooky moon."], growTime: 3400}
+    ]
+  }
+};
+
+const allPlants = [
+  {name:"Carrot", emoji:"🥕", seeds:"🌰", sprout:"🌱", plant:"🥕", tips:["Plant in loose soil!"], growTime: 3500},
+  {name:"Potato", emoji:"🥔", seeds:"🌰", sprout:"🌱", plant:"🥔", tips:["Needs lots of earth."], growTime: 4000},
+  {name:"Tomato", emoji:"🍅", seeds:"🍅", sprout:"🌱", plant:"🍅", tips:["Likes sunlight!"], growTime: 3500},
+  {name:"Corn", emoji:"🌽", seeds:"🌽", sprout:"🌿", plant:"🌽", tips:["Keep well-watered."], growTime: 4200},
+  {name:"Radish", emoji:"🌶️", seeds:"🌶️", sprout:"🌱", plant:"🌶️", tips:["Grows quickly!"], growTime: 2500},
+  {name:"Lettuce", emoji:"🥬", seeds:"🥬", sprout:"🌱", plant:"🥬", tips:["Cool and moist soil."], growTime: 3000}
+];
+
+// --- SAVE/LOAD PROGRESS ---
+function saveProgress(user, stats) {
+  localStorage.setItem("garden-progress-"+user, JSON.stringify(stats));
+}
+function loadProgress(user) {
+  const raw = localStorage.getItem("garden-progress-"+user);
+  if (raw) return JSON.parse(raw);
+  return {total:0, grown:{}};
+}
+
+// --- SEASON CHOOSER LOGIC ---
+let manualSeason = "auto";
+document.getElementById("seasonSelect").addEventListener("change", function() {
+  manualSeason = this.value;
+  applyThemeEffects();
+  showSeedSelection();
+});
+
+// --- THEME/EVENT SYSTEM ---
+function getCurrentThemeAndEvent() {
+  if (manualSeason !== "auto") {
+    return {theme: manualSeason, event: (themeData[manualSeason]||{}).event || ""};
+  }
+  const now = new Date();
+  const m = now.getMonth(), d = now.getDate(), hour = now.getHours();
+  if (hour < 6 || hour >= 20) return {theme:"night", event:""};
+  if (m === 2 && d >= 20 && d <= 31) return {theme: "spring", event:"cherry-blossom"};
+  if (m === 9 && d >= 28 && d <= 31) return {theme: "halloween", event:"halloween"};
+  if (m === 9 && d >= 20 && d <= 31) return {theme: "autumn", event:"harvest"};
+  if (m === 0 && d >= 20 && d <= 31) return {theme: "winter", event:"winter-solstice"};
+  if (m === 1 && d >= 10 && d <= 20) return {theme: "lunar-new-year", event:"lunar-new-year"};
+  if (m >= 2 && m <= 4) return {theme: "spring"};
+  if (m >= 5 && m <= 7) return {theme: "summer"};
+  if (m >= 8 && m <= 10) return {theme: "autumn"};
+  if (m === 11 || m === 0 || m === 1) return {theme: "winter"};
+  return {theme: "summer"};
+}
+
+function setThemeSound(soundUrl) {
+  const audio = document.getElementById('bgSound');
+  if (!audio) return;
+  if (!soundUrl) {
+    audio.pause();
+    audio.src = "";
+    return;
+  }
+  if (audio.src && audio.src.endsWith(soundUrl)) return;
+  audio.src = soundUrl;
+  audio.volume = 0.35;
+  if (window.userHasInteracted) {
+    audio.play().catch(()=>{});
+  } else {
+    const playOnInteraction = () => {
+      audio.play().catch(()=>{});
+      window.removeEventListener("click", playOnInteraction);
+      window.userHasInteracted = true;
+    };
+    window.addEventListener("click", playOnInteraction);
+  }
+}
 
 // --- ADVANCED CANVAS ANIMATED BACKGROUNDS FOR SEASONS & EVENTS ---
 let bgCanvas, bgCtx, bgActive="", bgAnimFrame=0, bgThings=[], bgImgCache={};
@@ -56,211 +186,4 @@ function drawSummer() {
     bgCtx.rotate(b.a);
     bgCtx.drawImage(bgImgCache.butterfly, -b.s/2,-b.s/2,b.s,b.s);
     bgCtx.restore();
-    b.x += b.vx; b.y += b.vy; b.a += b.va;
-    if(b.y > window.innerHeight+40) { b.y=-30; b.x=Math.random()*window.innerWidth; }
-    if(b.x < -40) b.x = window.innerWidth+40;
-    if(b.x > window.innerWidth+40) b.x = -40;
-  }
-  bgAnimFrame=requestAnimationFrame(drawSummer);
-}
-function startAutumn() {
-  endAllBG();
-  initBGCanvas();
-  bgActive = "autumn";
-  bgThings = [];
-  if (!bgImgCache.leaf) {
-    let img = new Image(); img.src = "https://pngimg.com/d/autumn_leaves_PNG3612.png";
-    bgImgCache.leaf = img;
-  }
-  for(let i=0;i<24;++i)
-    bgThings.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,w:36+Math.random()*30,h:20+Math.random()*14,vy:0.7+Math.random()*1.3,vx:(Math.random()-0.5)*1.1,a:Math.random()*Math.PI*2,va:(Math.random()-0.5)*0.06});
-  drawAutumn();
-}
-function drawAutumn() {
-  if(bgActive!=="autumn") return;
-  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
-  for (let l of bgThings) {
-    bgCtx.save();
-    bgCtx.globalAlpha=0.7;
-    bgCtx.translate(l.x+l.w/2,l.y+l.h/2);
-    bgCtx.rotate(l.a);
-    bgCtx.drawImage(bgImgCache.leaf,-l.w/2,-l.h/2,l.w,l.h);
-    bgCtx.restore();
-    l.x += l.vx; l.y += l.vy; l.a += l.va;
-    if(l.y > window.innerHeight+20){l.y=-30;l.x=Math.random()*window.innerWidth;}
-    if(l.x < -30) l.x = window.innerWidth+30;
-    if(l.x > window.innerWidth+30) l.x = -30;
-  }
-  bgAnimFrame=requestAnimationFrame(drawAutumn);
-}
-function startWinter() {
-  endAllBG();
-  initBGCanvas();
-  bgActive = "winter";
-  bgThings = [];
-  for(let i=0; i<80; ++i)
-    bgThings.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:1.7+Math.random()*3.7,d:0.5+Math.random()*1.5,vx:(-0.6+Math.random()*1.2),vy:1+Math.random()*1.5,o:0.5+Math.random()*0.5});
-  drawWinter();
-}
-function drawWinter() {
-  if(bgActive!=="winter") return;
-  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
-  for (let f of bgThings) {
-    bgCtx.globalAlpha = f.o;
-    bgCtx.beginPath();
-    bgCtx.arc(f.x, f.y, f.r, 0, 2*Math.PI);
-    bgCtx.fillStyle = "#fff";
-    bgCtx.shadowColor = "#bbf0ff";
-    bgCtx.shadowBlur = 6;
-    bgCtx.fill(); bgCtx.shadowBlur = 0;
-    f.x += f.vx; f.y += f.vy;
-    if(f.y > window.innerHeight+8){f.y=-6;f.x=Math.random()*window.innerWidth;}
-    if(f.x < -6) f.x = window.innerWidth+6;
-    if(f.x > window.innerWidth+6) f.x = -6;
-  }
-  bgCtx.globalAlpha=1;
-  bgAnimFrame=requestAnimationFrame(drawWinter);
-}
-function startNight() {
-  endAllBG();
-  initBGCanvas();
-  bgActive = "night";
-  bgThings = [];
-  for(let i=0;i<18;++i)
-    bgThings.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:1.7+Math.random()*2.7,a:Math.random()*2*Math.PI,va:(Math.random()-0.5)*0.03,blink:Math.random()*2*Math.PI});
-  drawNight();
-}
-function drawNight() {
-  if(bgActive!=="night") return;
-  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
-  let t = Date.now()/500;
-  for(let f of bgThings){
-    let glow = 0.35+0.65*Math.abs(Math.sin(t+f.blink));
-    bgCtx.save();
-    bgCtx.globalAlpha=glow;
-    bgCtx.beginPath();
-    bgCtx.arc(f.x,f.y,f.r,0,2*Math.PI);
-    bgCtx.fillStyle="#ffffa0";
-    bgCtx.shadowColor="#fffca8";
-    bgCtx.shadowBlur = 16*glow;
-    bgCtx.fill(); bgCtx.shadowBlur = 0;
-    bgCtx.restore();
-    f.x += Math.sin(t+f.blink)*0.09;
-    f.y += Math.cos(t+f.blink)*0.08;
-  }
-  bgAnimFrame=requestAnimationFrame(drawNight);
-}
-function startHalloween() {
-  endAllBG();
-  initBGCanvas();
-  bgActive = "halloween";
-  bgThings = [];
-  if (!bgImgCache.ghost) {
-    let img = new Image(); img.src = "https://openmoji.org/data/color/svg/1F47B.svg";
-    bgImgCache.ghost = img;
-  }
-  for(let i=0;i<14;++i)
-    bgThings.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,s:38+Math.random()*16,vy:0.5+Math.random()*0.8,vx:(Math.random()-0.5)*0.6,a:Math.random()*2*Math.PI,va:(Math.random()-0.5)*0.07,fade:0.4+Math.random()*0.5});
-  drawHalloween();
-}
-function drawHalloween() {
-  if(bgActive!=="halloween") return;
-  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
-  for (let g of bgThings) {
-    bgCtx.save();
-    bgCtx.globalAlpha=g.fade;
-    bgCtx.translate(g.x,g.y);
-    bgCtx.rotate(g.a);
-    bgCtx.drawImage(bgImgCache.ghost, -g.s/2,-g.s/2,g.s,g.s);
-    bgCtx.restore();
-    g.x += g.vx; g.y += g.vy; g.a += g.va;
-    if(g.y > window.innerHeight+40){g.y=-30;g.x=Math.random()*window.innerWidth;}
-    if(g.x < -40) g.x = window.innerWidth+40;
-    if(g.x > window.innerWidth+40) g.x = -40;
-  }
-  bgAnimFrame=requestAnimationFrame(drawHalloween);
-}
-function startLunar() {
-  endAllBG();
-  initBGCanvas();
-  bgActive = "lunar";
-  bgThings = [];
-  if (!bgImgCache.lantern) {
-    let img = new Image(); img.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Red_Lantern_icon.png/64px-Red_Lantern_icon.png";
-    bgImgCache.lantern = img;
-  }
-  for(let i=0;i<12;++i)
-    bgThings.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,s:36+Math.random()*20,vy:0.5+Math.random()*0.7,vx:(Math.random()-0.5)*0.09,a:Math.random()*2*Math.PI,va:(Math.random()-0.5)*0.04,fade:0.7+Math.random()*0.3});
-  drawLunar();
-}
-function drawLunar() {
-  if(bgActive!=="lunar") return;
-  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
-  for (let l of bgThings) {
-    bgCtx.save();
-    bgCtx.globalAlpha=l.fade;
-    bgCtx.translate(l.x,l.y);
-    bgCtx.rotate(l.a);
-    bgCtx.drawImage(bgImgCache.lantern, -l.s/2,-l.s/2,l.s,l.s);
-    bgCtx.restore();
-    l.x += l.vx; l.y += l.vy; l.a += l.va;
-    if(l.y > window.innerHeight+40){l.y=-30;l.x=Math.random()*window.innerWidth;}
-    if(l.x < -40) l.x = window.innerWidth+40;
-    if(l.x > window.innerWidth+40) l.x = -40;
-  }
-  bgAnimFrame=requestAnimationFrame(drawLunar);
-}
-function endAllBG() {
-  bgActive="";
-  if(bgAnimFrame) cancelAnimationFrame(bgAnimFrame);
-  if(bgCanvas) bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
-  if(bgCanvas) bgCanvas.style.display = "none";
-}
-function initBGCanvas() {
-  bgCanvas = document.getElementById("snowCanvas");
-  if (!bgCanvas) {
-    bgCanvas = document.createElement("canvas");
-    bgCanvas.id = "snowCanvas";
-    document.body.appendChild(bgCanvas);
-  }
-  bgCanvas.style.display = "";
-  resizeBGCanvas();
-  bgCtx = bgCanvas.getContext("2d");
-}
-window.addEventListener("resize", resizeBGCanvas);
-function resizeBGCanvas() {
-  let c = document.getElementById("snowCanvas");
-  if (c) {
-    c.width = window.innerWidth;
-    c.height = window.innerHeight;
-  }
-}
-
-// --- Hook into theme changes ---
-function applyThemeEffects() {
-  const {theme, event} = getCurrentThemeAndEvent();
-  document.body.className = "";
-  document.body.classList.add("theme-"+theme);
-  if(event) document.body.classList.add("event-"+event);
-  const banner = document.getElementById("eventBanner");
-  let themeObj = themeData[theme] || {};
-  if (banner && themeObj.banner) {
-    banner.innerText = themeObj.banner;
-    banner.style.display = "";
-  } else if (banner) {
-    banner.style.display = "none";
-  }
-  setThemeSound(themeObj.sound);
-  window.currentExoticPlants = (themeObj.exotics || []);
-  // Animate backgrounds
-  if(theme==="spring") startSpring();
-  else if(theme==="summer") startSummer();
-  else if(theme==="autumn") startAutumn();
-  else if(theme==="winter") startWinter();
-  else if(theme==="night") startNight();
-  else if(theme==="halloween") startHalloween();
-  else if(theme==="lunar-new-year") startLunar();
-  else endAllBG();
-}
-
-// ... keep your plant growth/game logic as before ...
+    b
