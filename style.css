@@ -9,7 +9,9 @@ body {
 #snowCanvas {
   position: fixed;
   z-index: 1;
-  left: 0; top: 0; width: 100vw; height: 100vh; pointer-events: none;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
   display: none;
 }
 .box {
@@ -72,17 +74,6 @@ body.theme-winter {
 body.theme-night {
   background: linear-gradient(135deg, #202032 0%, #25254a 60%, #333366 100%);
   color: #e0e6f0;
-}
-
-/* Hide themeEffects backgrounds for canvas usage */
-body.theme-winter #themeEffects::before,
-body.theme-autumn #themeEffects::before,
-body.theme-spring #themeEffects::before,
-body.theme-summer #themeEffects::before,
-body.theme-night #themeEffects::before,
-body.theme-halloween #themeEffects::before,
-body.theme-lunar-new-year #themeEffects::before {
-  display: none;
 }
 button {
   background: #d3f9d8;
