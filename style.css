@@ -12,7 +12,7 @@ body {
   left: 0; top: 0;
   width: 100vw; height: 100vh;
   pointer-events: none;
-  display: none;
+  display: block;
 }
 .box {
   background: rgba(255,255,255,0.93);
@@ -39,41 +39,13 @@ body {
   0% { box-shadow: 0 0 24px 6px #b0ffb0, 0 0 0 4px #d0f9c4 inset;}
   100% { box-shadow: 0 0 40px 18px #c5ffb3, 0 0 0 4px #d0f9c4 inset;}
 }
-#eventBanner {
-  background: #ffeaea;
-  color: #b22222;
-  font-size: 1.18em;
-  padding: 10px 0;
-  border-radius: 16px;
-  margin-bottom: 18px;
-  text-align: center;
-  box-shadow: 0 2px 10px #e5a1a1aa;
-  border: 2px solid #ffb6b6;
-  display:none;
-  font-weight: bold;
-  z-index: 20;
-  animation: eventBannerPop 0.7s;
-}
-@keyframes eventBannerPop {
-  0% { opacity: 0; transform: scale(0.7);}
-  60% { opacity: .8; transform: scale(1.09);}
-  100% { opacity: 1; transform: scale(1);}
-}
-body.theme-spring {
-  background: linear-gradient(135deg, #e7ffd9 0%, #bdf7c6 40%, #a8e063 100%);
-}
-body.theme-summer {
-  background: linear-gradient(135deg, #c1eafd 0%, #f6fbd9 50%, #ffe484 100%);
-}
-body.theme-autumn {
-  background: linear-gradient(135deg, #ffe0b3 0%, #ffa95e 40%, #ffdc92 100%);
-}
-body.theme-winter {
-  background: linear-gradient(135deg, #d6f0ff 0%, #f0f8ff 60%, #ffffff 100%);
-}
-body.theme-night {
-  background: linear-gradient(135deg, #202032 0%, #25254a 60%, #333366 100%);
-  color: #e0e6f0;
+input[type="text"], input[type="password"] {
+  border: 1px solid #b1e6bf;
+  border-radius: 6px;
+  padding: 7px 10px;
+  margin: 6px 0;
+  font-size: 1em;
+  width: 90%;
 }
 button {
   background: #d3f9d8;
@@ -92,30 +64,12 @@ button:hover {
   width: 100%;
   font-size: 1.3em;
 }
-.animate-btn {
-  animation: popinbox 0.6s;
-}
 .logout-btn {
   background: #ffeaea;
   color: #b22222;
   border: 1px solid #fdc7c7;
 }
-#progressStats {
-  margin-bottom: 12px;
-  font-size: 1.12em;
-}
-input[type="text"], input[type="password"] {
-  border: 1px solid #b1e6bf;
-  border-radius: 6px;
-  padding: 7px 10px;
-  margin: 6px 0;
-  font-size: 1em;
-  width: 90%;
-}
 h2 {
   color: #388e3c;
   margin-top: 0;
-}
-@media (max-width: 600px) {
-  .box { max-width: 97vw; }
 }
